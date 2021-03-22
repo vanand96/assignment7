@@ -1,0 +1,27 @@
+{
+  "name": "assignment4-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e js,graphql server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanand96/assignment4.git"
+  },
+  "author": "Anand Vadavelli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanand96/assignment4/issues"
+  },
+  "homepage": "https://github.com/vanand96/assignment4#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.21.2",
+    "express": "^4.17.1",
+    "graphql": "^0.13.2",
+    "mongodb": "^3.6.5",
+    "nodemon": "^1.19.4"
+  }
+}

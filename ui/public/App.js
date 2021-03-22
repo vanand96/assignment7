@@ -171,7 +171,7 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
               case 0:
                 query = "query {\n      productList {\n        id name category price image \n      }\n    }";
                 _context.next = 3;
-                return fetch("/graphql", {
+                return fetch("http://localhost:3000/graphql", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json"
@@ -217,7 +217,7 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
               case 0:
                 query = "mutation productAdd($product: ProductInputs!) {\n      productAdd(product: $product) {\n        id\n      }\n    }";
                 _context2.next = 3;
-                return fetch("/graphql", {
+                return fetch("http://localhost:3000/graphql", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json"

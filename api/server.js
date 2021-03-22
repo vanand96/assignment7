@@ -7,7 +7,7 @@ const { MongoClient } = require("mongodb");
 // const url = "mongodb://localhost/issuetracker";
 
 // Atlas URL  - replace UUU with user, PPP with password, XXX with hostname
-const url = "mongodb URL";
+const url = "mongo db url";
 
 // mLab URL - replace UUU with user, PPP with password, XXX with hostname
 // const url = 'mongodb://UUU:PPP@XXX.mlab.com:33533/issuetracker';
@@ -69,7 +69,7 @@ async function connectToDb() {
 }
 
 const server = new ApolloServer({
-  typeDefs: fs.readFileSync("./server/schema.graphql", "utf-8"),
+  typeDefs: fs.readFileSync("schema.graphql", "utf-8"),
   resolvers,
   formatError: (error) => {
     console.log(error);
@@ -78,7 +78,6 @@ const server = new ApolloServer({
 });
 
 const app = express();
-app.use(express.static("public"));
 server.applyMiddleware({ app, path: "/graphql" });
 
 // app.listen(3000, function () {
@@ -89,7 +88,7 @@ server.applyMiddleware({ app, path: "/graphql" });
   try {
     await connectToDb();
     app.listen(3000, function () {
-      console.log("App started on port 3000");
+      console.log("API server started on port 3000");
     });
   } catch (err) {
     console.log("ERROR:", err);
