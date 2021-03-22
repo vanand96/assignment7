@@ -1,4 +1,5 @@
 const fs = require("fs");
+require("dotenv").config();
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { Kind } = require("graphql/language");
@@ -7,8 +8,8 @@ const { MongoClient } = require("mongodb");
 // const url = "mongodb://localhost/issuetracker";
 
 // Atlas URL  - replace UUU with user, PPP with password, XXX with hostname
-const url = "mongo db url";
-
+const url = process.env.DB_URL;
+const port = process.env.API_SERVER_PORT || 3000;
 // mLab URL - replace UUU with user, PPP with password, XXX with hostname
 // const url = 'mongodb://UUU:PPP@XXX.mlab.com:33533/issuetracker';
 
@@ -87,8 +88,8 @@ server.applyMiddleware({ app, path: "/graphql" });
 (async function () {
   try {
     await connectToDb();
-    app.listen(3000, function () {
-      console.log("API server started on port 3000");
+    app.listen(port, function () {
+      console.log(`API server started on port ${port}`);
     });
   } catch (err) {
     console.log("ERROR:", err);
