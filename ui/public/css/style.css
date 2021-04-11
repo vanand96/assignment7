@@ -29,3 +29,7 @@ td {
 table.bordered-table {
   border-collapse: collapse;
 }
+
+a.active {
+  background-color: #d8d8f5;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ProductRow(props) {
   const product = props.Product;
@@ -9,9 +10,7 @@ function ProductRow(props) {
       <td>{product.price}</td>
       <td>{product.name}</td>
       <td>
-        <a href={product.image} target="_blank">
-          View
-        </a>
+        <Link to={`/edit/${product.id}`}>Edit</Link>
       </td>
       <td>
         <a href={`/#/edit/${product.id}`}>Edit</a>

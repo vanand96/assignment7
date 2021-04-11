@@ -1,22 +1,33 @@
 /* eslint "react/prefer-stateless-function": "off" */
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class ProductFilter extends React.Component {
   render() {
     return (
       <div>
-        <a href="/#/products">All Products</a>
+        <Link to="/products">All Products</Link>
         {" | "}
-        <a href="/#/products?category=Shirts">Shirts</a>
+        <Link to={{ pathname: "/products", search: "?category=Shirts" }}>
+          Shirts
+        </Link>
         {" | "}
-        <a href="/#/products?category=Jeans">Jeans</a>
+        <Link to={{ pathname: "/products", search: "?category=Jeans" }}>
+          Jeans
+        </Link>
         {" | "}
-        <a href="/#/products?category=Jackets">Jackets</a>
+        <Link to={{ pathname: "/products", search: "?category=Jackets" }}>
+          Jackets
+        </Link>
         {" | "}
-        <a href="/#/products?category=Sweaters">Sweaters</a>
+        <Link to={{ pathname: "/products", search: "?category=Sweaters" }}>
+          Sweaters
+        </Link>
         {" | "}
-        <a href="/#/products?category=Accessories">Accessories</a>
+        <Link to={{ pathname: "/products", search: "?category=Accessories" }}>
+          Accessories
+        </Link>
       </div>
     );
   }
