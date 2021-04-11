@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import NumInput from "./NumInput.jsx";
 
 import graphQLFetch from "./graphQLFetch.js";
 
@@ -33,8 +34,9 @@ export default class ProductEdit extends React.Component {
     }
   }
 
-  onChange(event) {
-    const { name, value } = event.target;
+  onChange(event, naturalValue) {
+    const { name, value: textValue } = event.target;
+    const value = naturalValue === undefined ? textValue : naturalValue;
     this.setState((prevState) => ({
       product: { ...prevState.product, [name]: value },
     }));
@@ -62,7 +64,6 @@ export default class ProductEdit extends React.Component {
     if (data) {
       const { product } = data;
       product.name = product.name != null ? product.name : "";
-      product.price = product.price != null ? product.price : "";
       product.image = product.image != null ? product.image : "";
       this.setState({ product });
     } else {
@@ -123,7 +124,12 @@ export default class ProductEdit extends React.Component {
             <tr>
               <td>Price:</td>
               <td>
-                <input name="price" value={price} onChange={this.onChange} />
+                <NumInput
+                  name="price"
+                  value={price}
+                  onChange={this.onChange}
+                  key={id}
+                />
               </td>
             </tr>
             <tr>
