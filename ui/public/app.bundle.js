@@ -490,9 +490,13 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
     var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
     _this.state = {
       category: params.get("category") || "",
+      priceMin: params.get("priceMin") || "",
+      priceMax: params.get("priceMax") || "",
       changed: false
     };
     _this.onChangeStatus = _this.onChangeStatus.bind(_assertThisInitialized(_this));
+    _this.onChangePriceMin = _this.onChangePriceMin.bind(_assertThisInitialized(_this));
+    _this.onChangePriceMax = _this.onChangePriceMax.bind(_assertThisInitialized(_this));
     _this.applyFilter = _this.applyFilter.bind(_assertThisInitialized(_this));
     _this.showOriginalFilter = _this.showOriginalFilter.bind(_assertThisInitialized(_this));
     return _this;
@@ -517,31 +521,68 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "onChangePriceMin",
+    value: function onChangePriceMin(e) {
+      var priceString = e.target.value;
+
+      if (priceString.match(/^\d*$/)) {
+        this.setState({
+          priceMin: e.target.value,
+          changed: true
+        });
+      }
+    }
+  }, {
+    key: "onChangePriceMax",
+    value: function onChangePriceMax(e) {
+      var priceString = e.target.value;
+
+      if (priceString.match(/^\d*$/)) {
+        this.setState({
+          priceMax: e.target.value,
+          changed: true
+        });
+      }
+    }
+  }, {
     key: "showOriginalFilter",
     value: function showOriginalFilter() {
       var search = this.props.location.search;
       var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
       this.setState({
         category: params.get("category") || "",
+        priceMin: params.get("priceMin") || "",
+        priceMax: params.get("priceMax") || "",
         changed: false
       });
     }
   }, {
     key: "applyFilter",
     value: function applyFilter() {
-      var category = this.state.category;
+      var _this$state = this.state,
+          category = _this$state.category,
+          priceMin = _this$state.priceMin,
+          priceMax = _this$state.priceMax;
       var history = this.props.history;
+      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a();
+      if (category) params.set("category", category);
+      if (priceMin) params.set("priceMin", priceMin);
+      if (priceMax) params.set("priceMax", priceMax);
+      var search = params.toString() ? "?".concat(params.toString()) : "";
       history.push({
         pathname: "/products",
-        search: category ? "?category=".concat(category) : ""
+        search: search
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          category = _this$state.category,
-          changed = _this$state.changed;
+      var _this$state2 = this.state,
+          category = _this$state2.category,
+          changed = _this$state2.changed;
+      var _this$state3 = this.state,
+          priceMin = _this$state3.priceMin,
+          priceMax = _this$state3.priceMax;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Products:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: category,
         onChange: this.onChangeStatus
@@ -557,7 +598,15 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
         value: "Sweaters"
       }, "Sweaters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Accessories"
-      }, "Accessories")), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Accessories")), " ", "Price between:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        size: 5,
+        value: priceMin,
+        onChange: this.onChangePriceMin
+      }), " - ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        size: 5,
+        value: priceMax,
+        onChange: this.onChangePriceMax
+      }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: this.applyFilter
       }, "Apply"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -667,7 +716,7 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var search, params, vars, query, data;
+        var search, params, vars, priceMin, priceMax, query, data;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -676,11 +725,15 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
                 params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
                 vars = {};
                 if (params.get("category")) vars.category = params.get("category");
-                query = "query productList($category: ProductType) {\n        productList (category: $category) {\n          id name category price image \n        }\n      }";
-                _context.next = 7;
+                priceMin = parseInt(params.get("priceMin"), 10);
+                if (!Number.isNaN(priceMin)) vars.priceMin = priceMin;
+                priceMax = parseInt(params.get("priceMax"), 10);
+                if (!Number.isNaN(priceMax)) vars.priceMax = priceMax;
+                query = "query productList(\n      $category: ProductType\n      $priceMin: Int\n      $priceMax: Int\n      ) {\n        productList (\n          category: $category\n          priceMin: $priceMin\n          priceMax: $priceMax\n          ) {\n          id name category price image \n        }\n      }";
+                _context.next = 11;
                 return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, vars);
 
-              case 7:
+              case 11:
                 data = _context.sent;
 
                 if (data) {
@@ -689,7 +742,7 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 9:
+              case 13:
               case "end":
                 return _context.stop();
             }
