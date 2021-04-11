@@ -479,20 +479,57 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(ProductFilter);
 
-  function ProductFilter() {
+  function ProductFilter(_ref) {
     var _this;
+
+    var search = _ref.location.search;
 
     _classCallCheck(this, ProductFilter);
 
     _this = _super.call(this);
+    var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
+    _this.state = {
+      category: params.get("category") || "",
+      changed: false
+    };
     _this.onChangeStatus = _this.onChangeStatus.bind(_assertThisInitialized(_this));
+    _this.applyFilter = _this.applyFilter.bind(_assertThisInitialized(_this));
+    _this.showOriginalFilter = _this.showOriginalFilter.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(ProductFilter, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var prevSearch = prevProps.location.search;
+      var search = this.props.location.search;
+
+      if (prevSearch !== search) {
+        this.showOriginalFilter();
+      }
+    }
+  }, {
     key: "onChangeStatus",
     value: function onChangeStatus(e) {
-      var category = e.target.value;
+      this.setState({
+        category: e.target.value,
+        changed: true
+      });
+    }
+  }, {
+    key: "showOriginalFilter",
+    value: function showOriginalFilter() {
+      var search = this.props.location.search;
+      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
+      this.setState({
+        category: params.get("category") || "",
+        changed: false
+      });
+    }
+  }, {
+    key: "applyFilter",
+    value: function applyFilter() {
+      var category = this.state.category;
       var history = this.props.history;
       history.push({
         pathname: "/products",
@@ -502,10 +539,11 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var search = this.props.location.search;
-      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
+      var _this$state = this.state,
+          category = _this$state.category,
+          changed = _this$state.changed;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Products:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        value: params.get("category") || "",
+        value: category,
         onChange: this.onChangeStatus
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: ""
@@ -519,7 +557,14 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
         value: "Sweaters"
       }, "Sweaters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Accessories"
-      }, "Accessories")));
+      }, "Accessories")), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        onClick: this.applyFilter
+      }, "Apply"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        onClick: this.showOriginalFilter,
+        disabled: !changed
+      }, "Reset"));
     }
   }]);
 
