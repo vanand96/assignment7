@@ -9,6 +9,7 @@ const resolvers = {
   Query: {
     about: about.getAboutMessage,
     productList: product.list,
+    product: product.get,
   },
   Mutation: {
     setAboutMessage: about.setAboutMessage,

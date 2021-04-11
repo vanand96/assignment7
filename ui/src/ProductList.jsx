@@ -1,9 +1,12 @@
 import React from "react";
 import URLSearchParams from "url-search-params";
+import { Route } from "react-router-dom";
 
 import ProductFilter from "./ProductFilter.jsx";
 import ProductTable from "./ProductTable.jsx";
 import ProductAdd from "./ProductAdd.jsx";
+import ProductView from "./ProductView.jsx";
+
 import graphQLFetch from "./graphQLFetch.js";
 
 export default class ProductList extends React.Component {
@@ -65,6 +68,7 @@ export default class ProductList extends React.Component {
 
   render() {
     const { products } = this.state;
+    const { match } = this.props;
     return (
       <React.Fragment>
         <h1>My Company Inventory</h1>
@@ -78,6 +82,8 @@ export default class ProductList extends React.Component {
         </div>
         <hr />
         <ProductAdd createProduct={this.createProduct} />
+        <hr />
+        <Route path={`${match.path}/:id`} component={ProductView} />{" "}
       </React.Fragment>
     );
   }

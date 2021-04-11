@@ -27,6 +27,7 @@ input ProductInputs {
 type Query {
   about: String!
   productList(category: ProductType): [Product!]!
+  product(id: Int!): Product!
 }
 
 type Mutation {
