@@ -1,4 +1,5 @@
 import React from "react";
+import ProductFilter from "./ProductFilter.jsx";
 import ProductTable from "./ProductTable.jsx";
 import ProductAdd from "./ProductAdd.jsx";
 

@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import ProductList from "./ProductList.jsx";
 import ProductReport from "./ProductReport.jsx";
+import ProductEdit from "./ProductEdit.jsx";
 
 const NotFound = () => <h1>Page Not Found</h1>;
 
@@ -11,6 +12,7 @@ export default function Contents() {
     <Switch>
       <Redirect exact from="/" to="/products" />
       <Route path="/products" component={ProductList} />
+      <Route path="/edit/:id" component={ProductEdit} />
       <Route path="/report" component={ProductReport} />
       <Route component={NotFound} />
     </Switch>

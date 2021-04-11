@@ -13,6 +13,9 @@ function ProductRow(props) {
           View
         </a>
       </td>
+      <td>
+        <a href={`/#/edit/${product.id}`}>Edit</a>
+      </td>
     </tr>
   );
 }
@@ -31,6 +34,7 @@ export default function ProductTable(props) {
           <th>Price</th>
           <th>Product Name</th>
           <th>Image URL</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>{productRows}</tbody>
