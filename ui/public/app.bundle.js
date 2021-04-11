@@ -434,7 +434,7 @@ function ProductEdit(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return IssueFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductFilter; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -462,23 +462,23 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 /* eslint "react/prefer-stateless-function": "off" */
 
 
-var IssueFilter = /*#__PURE__*/function (_React$Component) {
-  _inherits(IssueFilter, _React$Component);
+var ProductFilter = /*#__PURE__*/function (_React$Component) {
+  _inherits(ProductFilter, _React$Component);
 
-  var _super = _createSuper(IssueFilter);
+  var _super = _createSuper(ProductFilter);
 
-  function IssueFilter() {
-    _classCallCheck(this, IssueFilter);
+  function ProductFilter() {
+    _classCallCheck(this, ProductFilter);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(IssueFilter, [{
+  _createClass(ProductFilter, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/#/products"
-      }, "All Issues"), " | ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, "All Products"), " | ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/#/products?category=Shirts"
       }, "Shirts"), " | ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/#/products?category=Jeans"
@@ -488,11 +488,11 @@ var IssueFilter = /*#__PURE__*/function (_React$Component) {
         href: "/#/products?category=Sweaters"
       }, "Sweaters"), " | ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/#/products?category=Accessories"
-      }, "Accessories"), " | ");
+      }, "Accessories"));
     }
   }]);
 
-  return IssueFilter;
+  return ProductFilter;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 
@@ -511,9 +511,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductFilter.jsx */ "./src/ProductFilter.jsx");
-/* harmony import */ var _ProductTable_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductTable.jsx */ "./src/ProductTable.jsx");
-/* harmony import */ var _ProductAdd_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductAdd.jsx */ "./src/ProductAdd.jsx");
+/* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! url-search-params */ "./node_modules/url-search-params/build/url-search-params.node.js");
+/* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(url_search_params__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductFilter.jsx */ "./src/ProductFilter.jsx");
+/* harmony import */ var _ProductTable_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductTable.jsx */ "./src/ProductTable.jsx");
+/* harmony import */ var _ProductAdd_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductAdd.jsx */ "./src/ProductAdd.jsx");
+/* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -545,6 +548,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var ProductList = /*#__PURE__*/function (_React$Component) {
   _inherits(ProductList, _React$Component);
 
@@ -569,38 +574,42 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
       this.loadData();
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var prevSearch = prevProps.location.search;
+      var search = this.props.location.search;
+
+      if (prevSearch !== search) {
+        this.loadData();
+      }
+    }
+  }, {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var query, response, result;
+        var search, params, vars, query, data;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                query = "query {\n        productList {\n          id name category price image \n        }\n      }";
-                _context.next = 3;
-                return fetch(window.ENV.UI_API_ENDPOINT, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    query: query
-                  })
-                });
+                search = this.props.location.search;
+                params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
+                vars = {};
+                if (params.get("category")) vars.category = params.get("category");
+                query = "query productList($category: ProductType) {\n        productList (category: $category) {\n          id name category price image \n        }\n      }";
+                _context.next = 7;
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_5__["default"])(query, vars);
 
-              case 3:
-                response = _context.sent;
-                _context.next = 6;
-                return response.json();
+              case 7:
+                data = _context.sent;
 
-              case 6:
-                result = _context.sent;
-                this.setState({
-                  products: result.data.productList
-                });
+                if (data) {
+                  this.setState({
+                    products: data.productList
+                  });
+                }
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -618,29 +627,23 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "createProduct",
     value: function () {
       var _createProduct = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(product) {
-        var query, response;
+        var query, data;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 query = "mutation productAdd($product: ProductInputs!) {\n        productAdd(product: $product) {\n          id\n        }\n      }";
                 _context2.next = 3;
-                return fetch(window.ENV.UI_API_ENDPOINT, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    query: query,
-                    variables: {
-                      product: product
-                    }
-                  })
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_5__["default"])(query, {
+                  product: product
                 });
 
               case 3:
-                response = _context2.sent;
-                this.loadData();
+                data = _context2.sent;
+
+                if (data) {
+                  this.loadData();
+                }
 
               case 5:
               case "end":
@@ -659,9 +662,10 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "My Company Inventory"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Showing all available products"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductTable_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        products: this.state.products
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Add a new product to inventory"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductAdd_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      var products = this.state.products;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "My Company Inventory"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Showing all available products"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductTable_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        products: products
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Add a new product to inventory"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductAdd_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         createProduct: this.createProduct
       }));
     }
@@ -727,6 +731,92 @@ function ProductTable(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "bordered-table"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Product Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Image URL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Action"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, productRows));
+}
+
+/***/ }),
+
+/***/ "./src/graphQLFetch.js":
+/*!*****************************!*\
+  !*** ./src/graphQLFetch.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return graphQLFetch; });
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* eslint "no-alert": "off" */
+function graphQLFetch(_x) {
+  return _graphQLFetch.apply(this, arguments);
+}
+
+function _graphQLFetch() {
+  _graphQLFetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(query) {
+    var variables,
+        response,
+        body,
+        result,
+        error,
+        details,
+        _args = arguments;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            variables = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+            _context.prev = 1;
+            _context.next = 4;
+            return fetch(window.ENV.UI_API_ENDPOINT, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                query: query,
+                variables: variables
+              })
+            });
+
+          case 4:
+            response = _context.sent;
+            _context.next = 7;
+            return response.text();
+
+          case 7:
+            body = _context.sent;
+            result = JSON.parse(body);
+
+            if (result.errors) {
+              error = result.errors[0];
+
+              if (error.extensions.code === "BAD_USER_INPUT") {
+                details = error.extensions.exception.errors.join("\n ");
+                alert("".concat(error.message, ":\n ").concat(details));
+              } else {
+                alert("".concat(error.extensions.code, ": ").concat(error.message));
+              }
+            }
+
+            return _context.abrupt("return", result.data);
+
+          case 13:
+            _context.prev = 13;
+            _context.t0 = _context["catch"](1);
+            alert("Error in sending data to server: ".concat(_context.t0.message));
+            return _context.abrupt("return", null);
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[1, 13]]);
+  }));
+  return _graphQLFetch.apply(this, arguments);
 }
 
 /***/ }),

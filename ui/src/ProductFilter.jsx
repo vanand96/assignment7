@@ -2,11 +2,11 @@
 
 import React from "react";
 
-export default class IssueFilter extends React.Component {
+export default class ProductFilter extends React.Component {
   render() {
     return (
       <div>
-        <a href="/#/products">All Issues</a>
+        <a href="/#/products">All Products</a>
         {" | "}
         <a href="/#/products?category=Shirts">Shirts</a>
         {" | "}
@@ -17,7 +17,6 @@ export default class IssueFilter extends React.Component {
         <a href="/#/products?category=Sweaters">Sweaters</a>
         {" | "}
         <a href="/#/products?category=Accessories">Accessories</a>
-        {" | "}
       </div>
     );
   }

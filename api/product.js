@@ -1,8 +1,10 @@
 const { getDb, getNextSequence } = require("./db.js");
 
-async function list() {
+async function list(_, { category }) {
   const db = getDb();
-  const products = await db.collection("products").find({}).toArray();
+  const filter = {};
+  if (category) filter.category = category;
+  const products = await db.collection("products").find(filter).toArray();
   return products;
   // return productDB;
 }
