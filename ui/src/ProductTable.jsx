@@ -10,9 +10,10 @@ function ProductRow(props) {
       <td>{product.price}</td>
       <td>{product.name}</td>
       <td>
-        <a href={product.image} target="_blank">
+        {/* <a href={product.image} target="_blank">
           View
-        </a>
+        </a> */}
+        <Link to={`/view/${product.id}`}>View</Link>
       </td>
       <td>
         <Link to={`/edit/${product.id}`}>Edit</Link>
