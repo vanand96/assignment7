@@ -10,3 +10,7 @@ import ProductList from "./ProductList.jsx";
 const element = <ProductList />;
 
 ReactDOM.render(element, document.getElementById("content"));
+
+if (module.hot) {
+  module.hot.accept();
+}
