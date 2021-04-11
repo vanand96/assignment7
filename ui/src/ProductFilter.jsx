@@ -2,6 +2,7 @@
 
 import React from "react";
 import { withRouter } from "react-router-dom";
+import URLSearchParams from "url-search-params";
 
 class ProductFilter extends React.Component {
   constructor() {
@@ -19,10 +20,17 @@ class ProductFilter extends React.Component {
   }
 
   render() {
+    const {
+      location: { search },
+    } = this.props;
+    const params = new URLSearchParams(search);
     return (
       <div>
         Products:{" "}
-        <select onChange={this.onChangeStatus}>
+        <select
+          value={params.get("category") || ""}
+          onChange={this.onChangeStatus}
+        >
           <option value="">(All)</option>
           <option value="Shirts">Shirts</option>
           <option value="Jeans">Jeans</option>
