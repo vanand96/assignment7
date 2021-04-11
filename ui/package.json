@@ -20,9 +20,14 @@
   },
   "homepage": "https://github.com/vanand96/assignment4#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",

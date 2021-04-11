@@ -1,6 +1,4 @@
-/* globals React */
-/* eslint "react/jsx-no-undef": "off" */
-
+import React from "react";
 import ProductTable from "./ProductTable.jsx";
 import ProductAdd from "./ProductAdd.jsx";
 
