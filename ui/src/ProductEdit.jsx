@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NumInput from "./NumInput.jsx";
+import TextInput from "./TextInput.jsx";
 
 import graphQLFetch from "./graphQLFetch.js";
 
@@ -61,14 +62,7 @@ export default class ProductEdit extends React.Component {
       },
     } = this.props;
     const data = await graphQLFetch(query, { id });
-    if (data) {
-      const { product } = data;
-      product.name = product.name != null ? product.name : "";
-      product.image = product.image != null ? product.image : "";
-      this.setState({ product });
-    } else {
-      this.setState({ product: {} });
-    }
+    this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
 
   render() {
@@ -118,7 +112,12 @@ export default class ProductEdit extends React.Component {
             <tr>
               <td>Name:</td>
               <td>
-                <input name="name" value={name} onChange={this.onChange} />
+                <TextInput
+                  name="name"
+                  value={name}
+                  onChange={this.onChange}
+                  key={id}
+                />
               </td>
             </tr>
             <tr>
@@ -135,7 +134,12 @@ export default class ProductEdit extends React.Component {
             <tr>
               <td>Image:</td>
               <td>
-                <input name="image" value={image} onChange={this.onChange} />
+                <TextInput
+                  name="image"
+                  value={image}
+                  onChange={this.onChange}
+                  key={id}
+                />
               </td>
             </tr>
             <tr>
