@@ -26,7 +26,7 @@ input ProductInputs {
 ##### Top level declarations
 type Query {
   about: String!
-  productList(category: ProductType): [Product!]!
+  productList(category: ProductType, priceMin: Int, priceMax: Int): [Product!]!
   product(id: Int!): Product!
 }
 
