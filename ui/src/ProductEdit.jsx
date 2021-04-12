@@ -43,10 +43,23 @@ export default class ProductEdit extends React.Component {
     }));
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    const { product } = this.state;
-    console.log(product); // eslint-disable-line no-console
+    const { product, invalidFields } = this.state;
+    if (Object.keys(invalidFields).length !== 0) return;
+
+    const query = `mutation productUpdate($id: Int!, $changes: ProductUpdateInputs!) {
+      productUpdate(id:$id, changes:$changes) {
+        id name category price
+      }
+    }`;
+
+    const { id, name, ...changes } = product;
+    const data = await graphQLFetch(query, { changes, id });
+    if (data) {
+      this.setState({ product: data.productUpdate });
+      alert("Updated product successfully"); // eslint-disable-line no-alert
+    }
   }
 
   async loadData() {
