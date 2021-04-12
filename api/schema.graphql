@@ -23,6 +23,17 @@ input ProductInputs {
   image: String
 }
 
+"""
+Inputs for productUpdate: all are optional. Whichever is specified will
+be set to the given value, undefined fields will remain unmodified.
+"""
+input ProductUpdateInputs {
+  name: String
+  category: ProductType
+  price: Float
+  image: String
+}
+
 ##### Top level declarations
 type Query {
   about: String!
@@ -33,4 +44,5 @@ type Query {
 type Mutation {
   setAboutMessage(message: String!): String
   productAdd(product: ProductInputs!): Product!
+  productUpdate(id: Int!, changes: ProductUpdateInputs!): Product!
 }

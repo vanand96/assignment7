@@ -14,6 +14,7 @@ const resolvers = {
   Mutation: {
     setAboutMessage: about.setAboutMessage,
     productAdd: product.add,
+    productUpdate: product.update,
   },
 };
 
