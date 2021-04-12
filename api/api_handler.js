@@ -15,6 +15,7 @@ const resolvers = {
     setAboutMessage: about.setAboutMessage,
     productAdd: product.add,
     productUpdate: product.update,
+    productDelete: product.delete,
   },
 };
 

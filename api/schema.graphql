@@ -45,4 +45,5 @@ type Mutation {
   setAboutMessage(message: String!): String
   productAdd(product: ProductInputs!): Product!
   productUpdate(id: Int!, changes: ProductUpdateInputs!): Product!
+  productDelete(id: Int!): Boolean!
 }
