@@ -1,30 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 
-function ProductRow(props) {
-  const product = props.Product;
-  return (
-    <tr>
-      <td>{product.id}</td>
-      <td>{product.category}</td>
-      <td>{product.price}</td>
-      <td>{product.name}</td>
-      <td>
-        {/* <a href={product.image} target="_blank">
-          View
-        </a> */}
-        <Link to={`/view/${product.id}`}>View</Link>
-      </td>
-      <td>
-        <Link to={`/edit/${product.id}`}>Edit</Link>
-      </td>
-    </tr>
-  );
-}
+const ProductRow = withRouter(
+  ({ product, location: { search }, deleteProduct, index }) => {
+    const selectLocation = { pathname: `/products/${product.id}`, search };
+    return (
+      <tr>
+        <td>{product.id}</td>
+        <td>{product.category}</td>
+        <td>{product.name}</td>
+        <td>{product.price}</td>
+        <td>
+          <Link to={`/view/${product.id}`}>View</Link>
+          {" | "}
+          <Link to={`/edit/${product.id}`}>Edit</Link>
+          {" | "}
+          <button
+            type="button"
+            onClick={() => {
+              deleteProduct(index);
+            }}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    );
+  }
+);
 
-export default function ProductTable(props) {
-  const productRows = props.products.map((Product) => (
-    <ProductRow key={Product.id} Product={Product} />
+export default function ProductTable({ products, deleteProduct }) {
+  const productRows = products.map((product, index) => (
+    <ProductRow
+      key={product.id}
+      product={product}
+      deleteProduct={deleteProduct}
+      index={index}
+    />
   ));
 
   return (
@@ -33,9 +45,8 @@ export default function ProductTable(props) {
         <tr>
           <th>ID</th>
           <th>Category</th>
+          <th>Name</th>
           <th>Price</th>
-          <th>Product Name</th>
-          <th>Image URL</th>
           <th>Action</th>
         </tr>
       </thead>
