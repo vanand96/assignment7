@@ -1,6 +1,6 @@
-# CS-648 Full Stack Assignment 4
+# CS-648 Full Stack Assignment 5
 
-This application is designed for inventory management. The features demonstrated includes using MongoDB and organizing the project into different sub directories.
+This application is designed for inventory management. The features demonstrated includes adding update, delete graphQL apis and creating react components.
 
 Run the following commands to start the app.
 
