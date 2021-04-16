@@ -1,13 +1,10 @@
-# CS-648 Full Stack Assignment 5
+# CS-648 Full Stack Assignment 6
 
 This application is designed for inventory management.
 The features demonstrated includes:
 
-- simple routing, route parameters, and query parameters
-- Linking
-- Navigation
-- Building update, delete GraphL APIs
-- UI support to handle update, delete apis
+- React-Bootstrap
+- React-Router-Bootstrap
 
 Run the following commands to start the app.
 
