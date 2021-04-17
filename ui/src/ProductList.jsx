@@ -8,6 +8,7 @@ import ProductAdd from "./ProductAdd.jsx";
 import ProductView from "./ProductView.jsx";
 
 import graphQLFetch from "./graphQLFetch.js";
+import { Label } from "react-bootstrap";
 
 export default class ProductList extends React.Component {
   constructor() {
@@ -110,7 +111,9 @@ export default class ProductList extends React.Component {
     const { match } = this.props;
     return (
       <React.Fragment>
-        <h1>My Company Inventory</h1>
+        <h1>
+          <Label>My Company Inventory</Label>
+        </h1>
         <ProductFilter />
         <div>Showing all available products</div>
         <hr />
