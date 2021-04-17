@@ -1,9 +1,17 @@
 import React from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
+import { Button, Glyphicon, Tooltip, OverlayTrigger } from "react-bootstrap";
 
 const ProductRow = withRouter(
   ({ product, location: { search }, deleteProduct, index }) => {
     const selectLocation = { pathname: `/products/${product.id}`, search };
+
+    const deleteTooltip = (
+      <Tooltip id="delete-tooltip" placement="top">
+        Delete Product
+      </Tooltip>
+    );
+
     return (
       <tr>
         <td>{product.id}</td>
@@ -15,14 +23,25 @@ const ProductRow = withRouter(
           {" | "}
           <Link to={`/edit/${product.id}`}>Edit</Link>
           {" | "}
-          <button
+          {/* <button
             type="button"
             onClick={() => {
               deleteProduct(index);
             }}
           >
             Delete
-          </button>
+          </button> */}
+               
+          <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
+            <Button
+              bsSize="xsmall"
+              onClick={() => {
+                deleteProduct(index);
+              }}
+            >
+              <Glyphicon glyph="trash" />
+            </Button>
+          </OverlayTrigger>
         </td>
       </tr>
     );
