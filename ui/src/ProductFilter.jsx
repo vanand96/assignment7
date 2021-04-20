@@ -10,6 +10,8 @@ import {
   FormControl,
   ControlLabel,
   InputGroup,
+  Row,
+  Col,
 } from "react-bootstrap";
 
 class ProductFilter extends React.Component {
@@ -89,43 +91,56 @@ class ProductFilter extends React.Component {
     const { category, changed } = this.state;
     const { priceMin, priceMax } = this.state;
     return (
-      <div>
-        <FormGroup>
-          <ControlLabel>Products:</ControlLabel>
-          <FormControl
-            componentClass="select"
-            value={category}
-            onChange={this.onChangeStatus}
-          >
-            <option value="">(All)</option>
-            <option value="Shirts">Shirts</option>
-            <option value="Jeans">Jeans</option>
-            <option value="Jackets">Jackets</option>
-            <option value="Sweaters">Sweaters</option>
-            <option value="Accessories">Accessories</option>
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Price between:</ControlLabel>
-          <InputGroup>
-            <FormControl value={priceMin} onChange={this.onChangePriceMin} />
-            <InputGroup.Addon>-</InputGroup.Addon>
-            <FormControl value={priceMax} onChange={this.onChangePriceMax} />
-          </InputGroup>
-        </FormGroup>
-        <ButtonToolbar>
-          <Button bsStyle="primary" type="button" onClick={this.applyFilter}>
-            Apply
-          </Button>
-          <Button
-            type="button"
-            onClick={this.showOriginalFilter}
-            disabled={!changed}
-          >
-            Reset
-          </Button>
-        </ButtonToolbar>
-      </div>
+      <Row>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>Products:</ControlLabel>
+            <FormControl
+              componentClass="select"
+              value={category}
+              onChange={this.onChangeStatus}
+            >
+              <option value="">(All)</option>
+              <option value="Shirts">Shirts</option>
+              <option value="Jeans">Jeans</option>
+              <option value="Jackets">Jackets</option>
+              <option value="Sweaters">Sweaters</option>
+              <option value="Accessories">Accessories</option>
+            </FormControl>
+          </FormGroup>
+        </Col>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>Price between:</ControlLabel>
+            <InputGroup>
+              <FormControl value={priceMin} onChange={this.onChangePriceMin} />
+              <InputGroup.Addon>-</InputGroup.Addon>
+              <FormControl value={priceMax} onChange={this.onChangePriceMax} />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>&nbsp;</ControlLabel>
+            <ButtonToolbar>
+              <Button
+                bsStyle="primary"
+                type="button"
+                onClick={this.applyFilter}
+              >
+                Apply
+              </Button>
+              <Button
+                type="button"
+                onClick={this.showOriginalFilter}
+                disabled={!changed}
+              >
+                Reset
+              </Button>
+            </ButtonToolbar>
+          </FormGroup>
+        </Col>
+      </Row>
     );
   }
 }
