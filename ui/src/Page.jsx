@@ -1,18 +1,66 @@
 import React from "react";
+import {
+  Navbar,
+  Nav,
+  NavItem,
+  NavDropdown,
+  MenuItem,
+  Glyphicon,
+  Tooltip,
+  OverlayTrigger,
+  Grid,
+} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+
 import Contents from "./Contents.jsx";
-import { NavLink } from "react-router-dom";
 
 function NavBar() {
   return (
-    <nav>
-      <NavLink exact to="/">
-        Home
-      </NavLink>
-      {" | "}
-      <NavLink to="/products">Product List</NavLink>
-      {" | "}
-      <NavLink to="/report">Report</NavLink>
-    </nav>
+    <Navbar fluid>
+      <Navbar.Header>
+        <Navbar.Brand>My Company Inventory</Navbar.Brand>
+      </Navbar.Header>
+      <nav>
+        <LinkContainer exact to="/">
+          <NavItem>Home</NavItem>
+        </LinkContainer>
+        <LinkContainer exact to="/products">
+          <NavItem>Product List</NavItem>
+        </LinkContainer>
+        <LinkContainer exact to="/report">
+          <NavItem>Report</NavItem>
+        </LinkContainer>
+      </nav>
+      <Nav pullRight>
+        <NavItem>
+          <OverlayTrigger
+            placement="left"
+            delayShow={1000}
+            overlay={<Tooltip id="create-product">Create Product</Tooltip>}
+          >
+            <Glyphicon glyph="plus" />
+          </OverlayTrigger>
+        </NavItem>
+        <NavDropdown
+          id="user-dropdown"
+          title={<Glyphicon glyph="option-vertical" />}
+          noCaret
+        >
+          <MenuItem>About</MenuItem>
+        </NavDropdown>
+      </Nav>
+    </Navbar>
+  );
+}
+
+function Footer() {
+  return (
+    <small>
+      <p className="text-center">
+        Full source code available at this{" "}
+        <a href="https://github.com/vanand96/assignment6">GitHub repository</a>
+      </p>
+    </small>
   );
 }
 
@@ -20,7 +68,10 @@ export default function Page() {
   return (
     <div>
       <NavBar />
-      <Contents />
+      <Grid fluid>
+        <Contents />
+      </Grid>
+      <Footer />
     </div>
   );
 }

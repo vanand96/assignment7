@@ -1,6 +1,7 @@
 import React from "react";
 import URLSearchParams from "url-search-params";
 import { Route } from "react-router-dom";
+import { Panel } from "react-bootstrap";
 
 import ProductFilter from "./ProductFilter.jsx";
 import ProductTable from "./ProductTable.jsx";
@@ -8,7 +9,6 @@ import ProductAdd from "./ProductAdd.jsx";
 import ProductView from "./ProductView.jsx";
 
 import graphQLFetch from "./graphQLFetch.js";
-import { Label } from "react-bootstrap";
 
 export default class ProductList extends React.Component {
   constructor() {
@@ -111,12 +111,14 @@ export default class ProductList extends React.Component {
     const { match } = this.props;
     return (
       <React.Fragment>
-        <h1>
-          <Label>My Company Inventory</Label>
-        </h1>
-        <ProductFilter />
-        <div>Showing all available products</div>
-        <hr />
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title toggle>Filters</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body collapsible>
+            <ProductFilter />
+          </Panel.Body>
+        </Panel>
         <ProductTable products={products} deleteProduct={this.deleteProduct} />
         <div>
           <br />
