@@ -3,7 +3,14 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import URLSearchParams from "url-search-params";
-import { Button } from "react-bootstrap";
+import {
+  ButtonToolbar,
+  Button,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  InputGroup,
+} from "react-bootstrap";
 
 class ProductFilter extends React.Component {
   constructor({ location: { search } }) {
@@ -83,33 +90,41 @@ class ProductFilter extends React.Component {
     const { priceMin, priceMax } = this.state;
     return (
       <div>
-        Products:{" "}
-        <select value={category} onChange={this.onChangeStatus}>
-          <option value="">(All)</option>
-          <option value="Shirts">Shirts</option>
-          <option value="Jeans">Jeans</option>
-          <option value="Jackets">Jackets</option>
-          <option value="Sweaters">Sweaters</option>
-          <option value="Accessories">Accessories</option>
-        </select>{" "}
-        Price between:{" "}
-        <input size={5} value={priceMin} onChange={this.onChangePriceMin} />
-        {" - "}
-        <input
-          size={5}
-          value={priceMax}
-          onChange={this.onChangePriceMax}
-        />{" "}
-        <Button bsStyle="primary" type="button" onClick={this.applyFilter}>
-          Apply
-        </Button>{" "}
-        <Button
-          type="button"
-          onClick={this.showOriginalFilter}
-          disabled={!changed}
-        >
-          Reset
-        </Button>
+        <FormGroup>
+          <ControlLabel>Products:</ControlLabel>
+          <FormControl
+            componentClass="select"
+            value={category}
+            onChange={this.onChangeStatus}
+          >
+            <option value="">(All)</option>
+            <option value="Shirts">Shirts</option>
+            <option value="Jeans">Jeans</option>
+            <option value="Jackets">Jackets</option>
+            <option value="Sweaters">Sweaters</option>
+            <option value="Accessories">Accessories</option>
+          </FormControl>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Price between:</ControlLabel>
+          <InputGroup>
+            <FormControl value={priceMin} onChange={this.onChangePriceMin} />
+            <InputGroup.Addon>-</InputGroup.Addon>
+            <FormControl value={priceMax} onChange={this.onChangePriceMax} />
+          </InputGroup>
+        </FormGroup>
+        <ButtonToolbar>
+          <Button bsStyle="primary" type="button" onClick={this.applyFilter}>
+            Apply
+          </Button>
+          <Button
+            type="button"
+            onClick={this.showOriginalFilter}
+            disabled={!changed}
+          >
+            Reset
+          </Button>
+        </ButtonToolbar>
       </div>
     );
   }
