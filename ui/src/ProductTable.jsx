@@ -1,10 +1,23 @@
 import React from "react";
+import { LinkContainer } from "react-router-bootstrap";
+import {
+  Button,
+  Glyphicon,
+  Tooltip,
+  OverlayTrigger,
+  Table,
+} from "react-bootstrap";
 import { Link, NavLink, withRouter } from "react-router-dom";
-import { Button, Glyphicon, Tooltip, OverlayTrigger } from "react-bootstrap";
 
 const ProductRow = withRouter(
   ({ product, location: { search }, deleteProduct, index }) => {
     const selectLocation = { pathname: `/products/${product.id}`, search };
+
+    const editTooltip = (
+      <Tooltip id="close-tooltip" placement="top">
+        Edit Product
+      </Tooltip>
+    );
 
     const deleteTooltip = (
       <Tooltip id="delete-tooltip" placement="top">
@@ -12,7 +25,12 @@ const ProductRow = withRouter(
       </Tooltip>
     );
 
-    return (
+    function onDelete(e) {
+      e.preventDefault();
+      deleteProduct(index);
+    }
+
+    const tableRow = (
       <tr>
         <td>{product.id}</td>
         <td>{product.category}</td>
@@ -21,17 +39,15 @@ const ProductRow = withRouter(
         <td>
           <Link to={`/view/${product.id}`}>View</Link>
           {" | "}
-          <Link to={`/edit/${product.id}`}>Edit</Link>
-          {" | "}
-          {/* <button
-            type="button"
-            onClick={() => {
-              deleteProduct(index);
-            }}
-          >
-            Delete
-          </button> */}
-               
+          {/* <Link to={`/edit/${product.id}`}>Edit</Link>
+          {" | "} */}
+          <LinkContainer to={`/edit/${product.id}`}>
+            <OverlayTrigger delayShow={1000} overlay={editTooltip}>
+              <Button bsSize="xsmall">
+                <Glyphicon glyph="edit" />
+              </Button>
+            </OverlayTrigger>
+          </LinkContainer>{" "}
           <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
             <Button
               bsSize="xsmall"
@@ -45,6 +61,8 @@ const ProductRow = withRouter(
         </td>
       </tr>
     );
+
+    return <LinkContainer to={selectLocation}>{tableRow}</LinkContainer>;
   }
 );
 
@@ -59,7 +77,7 @@ export default function ProductTable({ products, deleteProduct }) {
   ));
 
   return (
-    <table className="bordered-table">
+    <Table bordered condensed hover responsive>
       <thead>
         <tr>
           <th>ID</th>
@@ -70,6 +88,6 @@ export default function ProductTable({ products, deleteProduct }) {
         </tr>
       </thead>
       <tbody>{productRows}</tbody>
-    </table>
+    </Table>
   );
 }
