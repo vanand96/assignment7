@@ -1,5 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
+import {
+  Col,
+  Panel,
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  ButtonToolbar,
+  Button,
+} from "react-bootstrap";
 import NumInput from "./NumInput.jsx";
 import TextInput from "./TextInput.jsx";
 
@@ -10,9 +21,11 @@ export default class ProductEdit extends React.Component {
     super();
     this.state = {
       product: {},
+      invalidFields: {},
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onValidityChange = this.onValidityChange.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +54,15 @@ export default class ProductEdit extends React.Component {
     this.setState((prevState) => ({
       product: { ...prevState.product, [name]: value },
     }));
+  }
+
+  onValidityChange(event, valid) {
+    const { name } = event.target;
+    this.setState((prevState) => {
+      const invalidFields = { ...prevState.invalidFields, [name]: !valid };
+      if (valid) delete invalidFields[name];
+      return { invalidFields };
+    });
   }
 
   async handleSubmit(e) {
@@ -94,6 +116,16 @@ export default class ProductEdit extends React.Component {
       return null;
     }
 
+    const { invalidFields } = this.state;
+    let validationMessage;
+    if (Object.keys(invalidFields).length !== 0) {
+      validationMessage = (
+        <div className="error">
+          Please correct invalid fields before submitting.
+        </div>
+      );
+    }
+
     const {
       product: { name, category },
     } = this.state;
@@ -102,16 +134,22 @@ export default class ProductEdit extends React.Component {
     } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>{`Editing product: ${id}`}</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>Category:</td>
-              <td>
-                <select
+      <Panel>
+                
+        <Panel.Heading>
+          <Panel.Title>{`Editing product: ${id}`}</Panel.Title>        
+        </Panel.Heading>
+        <Panel.Body>
+          <Form horizontal onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Category
+              </Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass="select"
                   name="category"
-                  value={category}
+                  value={status}
                   onChange={this.onChange}
                 >
                   <option value="Shirts">Shirts</option>
@@ -119,54 +157,72 @@ export default class ProductEdit extends React.Component {
                   <option value="Sweaters">Sweaters</option>
                   <option value="Jackets">Jackets</option>
                   <option value="Accessories">Accessories</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Name:</td>
-              <td>
-                <TextInput
+                </FormControl>
+              </Col>
+            </FormGroup>
+            <FormGroup validationState={invalidFields.name ? "error" : null}>
+              <Col componentClass={ControlLabel} sm={3}>
+                Name
+              </Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass={TextInput}
                   name="name"
                   value={name}
                   onChange={this.onChange}
                   key={id}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>Price:</td>
-              <td>
-                <NumInput
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Price
+              </Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass={NumInput}
                   name="price"
                   value={price}
                   onChange={this.onChange}
                   key={id}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>Image:</td>
-              <td>
-                <TextInput
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Image
+              </Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass={TextInput}
                   name="image"
                   value={image}
                   onChange={this.onChange}
                   key={id}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td />
-              <td>
-                <button type="submit">Submit</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <Link to={`/edit/${id - 1}`}>Prev</Link>
-        {" | "}
-        <Link to={`/edit/${id + 1}`}>Next</Link>
-      </form>
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col smOffset={3} sm={6}>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" type="submit">
+                    Submit
+                  </Button>
+                  <LinkContainer to="/products">
+                    <Button bsStyle="link">Back</Button>
+                  </LinkContainer>
+                </ButtonToolbar>
+              </Col>
+            </FormGroup>
+          </Form>
+          {validationMessage}
+        </Panel.Body>
+        <Panel.Footer>
+          <Link to={`/edit/${id - 1}`}>Prev</Link>
+          {" | "}
+          <Link to={`/edit/${id + 1}`}>Next</Link>
+        </Panel.Footer>
+      </Panel>
     );
   }
 }
