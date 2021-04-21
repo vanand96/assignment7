@@ -124,9 +124,7 @@ export default class ProductList extends React.Component {
           <br />
           Add a new product to inventory
         </div>
-        <hr />
         <ProductAdd createProduct={this.createProduct} />
-        <hr />
         <Route path={`${match.path}/:id`} component={ProductView} />{" "}
       </React.Fragment>
     );

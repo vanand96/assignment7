@@ -1,5 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  Form,
+  FormControl,
+  FormGroup,
+  ControlLabel,
+  Button,
+} from "react-bootstrap";
 
 export default class ProductAdd extends React.Component {
   constructor() {
@@ -26,7 +33,7 @@ export default class ProductAdd extends React.Component {
 
   render() {
     return (
-      <form name="productAdd" onSubmit={this.handleSubmit}>
+      <Form inline name="productAdd" onSubmit={this.handleSubmit}>
         <label htmlFor="products">Category</label>
         <select name="products" id="products">
           <option value="empty"></option>
@@ -36,29 +43,45 @@ export default class ProductAdd extends React.Component {
           <option value="Jackets">Jackets</option>
           <option value="Sweaters">Sweaters</option>
         </select>
-        <label htmlFor="PricePerUnit">Price Per Unit</label>
-        <input
+        {/* <label htmlFor="PricePerUnit">Price Per Unit</label> */}
+        {/* <input
           type="text"
           name="PricePerUnit"
           id="PricePerUnit"
           defaultValue="$"
-        />
-        <label htmlFor="productName">Product Name</label>
+        /> */}
+                
+        <FormGroup>
+          <ControlLabel>PricePerUnit:</ControlLabel>                     
+          <FormControl type="text" name="PricePerUnit" />         
+        </FormGroup>{" "}
+        <FormGroup>
+          <ControlLabel>Product Name</ControlLabel>                     
+          <FormControl type="text" name="ProductName" />         
+        </FormGroup>{" "}
+        <FormGroup>
+          <ControlLabel>Image URL</ControlLabel>                     
+          <FormControl type="text" name="ImageUrl" />         
+        </FormGroup>{" "}
+        {/* <label htmlFor="productName">Product Name</label>
         <input
           type="text"
           name="ProductName"
           id="ProductName"
           placeholder="Enter product name"
-        />
-        <label htmlFor="ImageUrl">Image URL</label>
+        /> */}
+        {/* <label htmlFor="ImageUrl">Image URL</label>
         <input
           type="text"
           name="ImageUrl"
           id="ImageUrl"
           placeholder="ImageUrl"
-        />
-        <input type="submit" onClick={cleardollar} />
-      </form>
+        /> */}
+        {/* <input type="submit" onClick={cleardollar} /> */}
+        <Button bsStyle="primary" type="submit">
+          Add
+        </Button>
+      </Form>
     );
 
     function cleardollar() {
