@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import NumInput from "./NumInput.jsx";
 import TextInput from "./TextInput.jsx";
-
+import Toast from "./Toast.jsx";
 import graphQLFetch from "./graphQLFetch.js";
 
 export default class ProductEdit extends React.Component {
@@ -24,10 +24,16 @@ export default class ProductEdit extends React.Component {
       product: {},
       invalidFields: {},
       showingValidation: false,
+      toastVisible: false,
+      toastMessage: "",
+      toastType: "success",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onValidityChange = this.onValidityChange.bind(this);
+    this.showSuccess = this.showSuccess.bind(this);
+    this.showError = this.showError.bind(this);
+    this.dismissToast = this.dismissToast.bind(this);
   }
 
   componentDidMount() {
@@ -80,10 +86,10 @@ export default class ProductEdit extends React.Component {
     }`;
 
     const { id, name, ...changes } = product;
-    const data = await graphQLFetch(query, { changes, id });
+    const data = await graphQLFetch(query, { changes, id }, this.showError);
     if (data) {
       this.setState({ product: data.productUpdate });
-      alert("Updated product successfully"); // eslint-disable-line no-alert
+      this.showSuccess("Updated product successfully"); // eslint-disable-line no-alert
     }
   }
 
@@ -99,7 +105,7 @@ export default class ProductEdit extends React.Component {
         params: { id },
       },
     } = this.props;
-    const data = await graphQLFetch(query, { id });
+    const data = await graphQLFetch(query, { id }, this.showError);
     this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
 
@@ -110,6 +116,23 @@ export default class ProductEdit extends React.Component {
     this.setState({ showingValidation: false });
   }
 
+  showSuccess(message) {
+    this.setState({
+      toastVisible: true,
+      toastMessage: message,
+      toastType: "success",
+    });
+  }
+  showError(message) {
+    this.setState({
+      toastVisible: true,
+      toastMessage: message,
+      toastType: "danger",
+    });
+  }
+  dismissToast() {
+    this.setState({ toastVisible: false });
+  }
   render() {
     const {
       product: { id },
@@ -142,6 +165,7 @@ export default class ProductEdit extends React.Component {
     const {
       product: { price, image },
     } = this.state;
+    const { toastVisible, toastMessage, toastType } = this.state;
 
     return (
       <Panel>
@@ -237,6 +261,13 @@ export default class ProductEdit extends React.Component {
           {" | "}
           <Link to={`/edit/${id + 1}`}>Next</Link>
         </Panel.Footer>
+        <Toast
+          showing={toastVisible}
+          onDismiss={this.dismissToast}
+          bsStyle={toastType}
+        >
+          {toastMessage}
+        </Toast>
       </Panel>
     );
   }

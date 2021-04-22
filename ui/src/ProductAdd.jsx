@@ -53,7 +53,13 @@ export default class ProductAdd extends React.Component {
                 
         <FormGroup>
           <ControlLabel>PricePerUnit:</ControlLabel>                     
-          <FormControl type="text" name="PricePerUnit" />         
+          <FormControl
+            type="text"
+            name="PricePerUnit"
+            id="PricePerUnit"
+            defaultValue="$"
+          />{" "}
+                  
         </FormGroup>{" "}
         <FormGroup>
           <ControlLabel>Product Name</ControlLabel>                     
@@ -78,7 +84,7 @@ export default class ProductAdd extends React.Component {
           placeholder="ImageUrl"
         /> */}
         {/* <input type="submit" onClick={cleardollar} /> */}
-        <Button bsStyle="primary" type="submit">
+        <Button bsStyle="primary" type="submit" onClick={cleardollar}>
           Add
         </Button>
       </Form>
@@ -86,6 +92,7 @@ export default class ProductAdd extends React.Component {
 
     function cleardollar() {
       var input = document.getElementById("PricePerUnit");
+      console.log(input);
       input.value = input.value.replace(/\$/g, "");
     }
   }
