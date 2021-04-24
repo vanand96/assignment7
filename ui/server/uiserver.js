@@ -10,7 +10,6 @@ const app = express();
 
 SourceMapSupport.install();
 dotenv.config();
-
 const enableHMR = (process.env.ENABLE_HMR || "true") === "true";
 
 if (enableHMR && process.env.NODE_ENV !== "production") {
@@ -33,11 +32,21 @@ if (enableHMR && process.env.NODE_ENV !== "production") {
 
 app.use(express.static("public"));
 
-const UI_API_ENDPOINT =
-  process.env.UI_API_ENDPOINT || "http://localhost:3000/graphql";
-const env = { UI_API_ENDPOINT };
+const apiProxyTarget = process.env.API_PROXY_TARGET;
+if (apiProxyTarget) {
+  app.use("/graphql", proxy({ target: apiProxyTarget }));
+}
+
+if (!process.env.UI_API_ENDPOINT) {
+  process.env.UI_API_ENDPOINT = "http://localhost:3000/graphql";
+}
+
+if (!process.env.UI_SERVER_API_ENDPOINT) {
+  process.env.UI_SERVER_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+}
 
 app.get("/env.js", (req, res) => {
+  const env = { UI_API_ENDPOINT: process.env.UI_API_ENDPOINT };
   res.send(`window.ENV = ${JSON.stringify(env)}`);
 });
 
