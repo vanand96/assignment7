@@ -249,6 +249,7 @@ var About = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     var apiAbout = _store_js__WEBPACK_IMPORTED_MODULE_1__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_1__["default"].initialData.about : null;
+    delete _store_js__WEBPACK_IMPORTED_MODULE_1__["default"].initialData;
     _this.state = {
       apiAbout: apiAbout
     };
@@ -354,14 +355,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductList.jsx */ "./src/ProductList.jsx");
-/* harmony import */ var _ProductReport_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductReport.jsx */ "./src/ProductReport.jsx");
-/* harmony import */ var _ProductEdit_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductEdit.jsx */ "./src/ProductEdit.jsx");
-/* harmony import */ var _ProductView_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProductView.jsx */ "./src/ProductView.jsx");
-/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./About.jsx */ "./src/About.jsx");
-
-
-
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes.js */ "./src/routes.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
@@ -376,25 +371,33 @@ function Contents() {
     exact: true,
     from: "/",
     to: "/products"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/products",
-    component: _ProductList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/edit/:id",
-    component: _ProductEdit_jsx__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/view/:id",
-    component: _ProductView_jsx__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/report",
-    component: _ProductReport_jsx__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/about",
-    component: _About_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    component: NotFound
+  }), _routes_js__WEBPACK_IMPORTED_MODULE_2__["default"].map(function (attrs) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], _extends({}, attrs, {
+      key: attrs.path
+    }));
   }));
 }
+
+/***/ }),
+
+/***/ "./src/NotFound.jsx":
+/*!**************************!*\
+  !*** ./src/NotFound.jsx ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function NotFound() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Page Not Found");
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (NotFound);
 
 /***/ }),
 
@@ -813,6 +816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TextInput_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TextInput.jsx */ "./src/TextInput.jsx");
 /* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
 /* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store.js */ "./src/store.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
@@ -858,6 +862,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var ProductEdit = /*#__PURE__*/function (_React$Component) {
   _inherits(ProductEdit, _React$Component);
 
@@ -869,8 +874,10 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProductEdit);
 
     _this = _super.call(this);
+    var product = _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData.product : null;
+    delete _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData;
     _this.state = {
-      product: {},
+      product: product,
       invalidFields: {},
       showingValidation: false,
       toastVisible: false,
@@ -880,6 +887,8 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.onValidityChange = _this.onValidityChange.bind(_assertThisInitialized(_this));
+    _this.dismissValidation = _this.dismissValidation.bind(_assertThisInitialized(_this));
+    _this.showValidation = _this.showValidation.bind(_assertThisInitialized(_this));
     _this.showSuccess = _this.showSuccess.bind(_assertThisInitialized(_this));
     _this.showError = _this.showError.bind(_assertThisInitialized(_this));
     _this.dismissToast = _this.dismissToast.bind(_assertThisInitialized(_this));
@@ -889,7 +898,8 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
   _createClass(ProductEdit, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.loadData();
+      var product = this.state.product;
+      if (product == null) this.loadData();
     }
   }, {
     key: "componentDidUpdate",
@@ -985,26 +995,23 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var query, id, data;
+        var match, data;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                query = "query product($id: Int!) {\n      product(id: $id) {\n        id category name price image\n      }\n    }";
-                id = this.props.match.params.id;
-                _context2.next = 4;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, {
-                  id: id
-                }, this.showError);
+                match = this.props.match;
+                _context2.next = 3;
+                return ProductEdit.fetchData(match, this.showError);
 
-              case 4:
+              case 3:
                 data = _context2.sent;
                 this.setState({
                   product: data ? data.product : {},
                   invalidFields: {}
                 });
 
-              case 6:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -1060,6 +1067,8 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var product = this.state.product;
+      if (product == null) return null;
       var id = this.state.product.id;
       var propsId = this.props.match.params.id;
 
@@ -1174,6 +1183,40 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
         bsStyle: toastType
       }, toastMessage));
     }
+  }], [{
+    key: "fetchData",
+    value: function () {
+      var _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(match, showError) {
+        var query, id, result;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                query = "query product($id: Int!) {\n      product(id: $id) {\n        id category name price image\n      }\n    }";
+                id = match.params.id;
+                _context3.next = 4;
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, {
+                  id: id
+                }, showError);
+
+              case 4:
+                result = _context3.sent;
+                return _context3.abrupt("return", result);
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function fetchData(_x2, _x3) {
+        return _fetchData.apply(this, arguments);
+      }
+
+      return fetchData;
+    }()
   }]);
 
   return ProductEdit;
@@ -2235,6 +2278,45 @@ function _graphQLFetch() {
   }));
   return _graphQLFetch.apply(this, arguments);
 }
+
+/***/ }),
+
+/***/ "./src/routes.js":
+/*!***********************!*\
+  !*** ./src/routes.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductList.jsx */ "./src/ProductList.jsx");
+/* harmony import */ var _ProductReport_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductReport.jsx */ "./src/ProductReport.jsx");
+/* harmony import */ var _ProductEdit_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductEdit.jsx */ "./src/ProductEdit.jsx");
+/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./About.jsx */ "./src/About.jsx");
+/* harmony import */ var _NotFound_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NotFound.jsx */ "./src/NotFound.jsx");
+
+
+
+
+
+var routes = [{
+  path: "/products",
+  component: _ProductList_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: "/edit/:id",
+  component: _ProductEdit_jsx__WEBPACK_IMPORTED_MODULE_2__["default"]
+}, {
+  path: "/report",
+  component: _ProductReport_jsx__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  path: "/about",
+  component: _About_jsx__WEBPACK_IMPORTED_MODULE_3__["default"]
+}, {
+  path: "*",
+  component: _NotFound_jsx__WEBPACK_IMPORTED_MODULE_4__["default"]
+}];
+/* harmony default export */ __webpack_exports__["default"] = (routes);
 
 /***/ }),
 

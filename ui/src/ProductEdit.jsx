@@ -16,12 +16,29 @@ import NumInput from "./NumInput.jsx";
 import TextInput from "./TextInput.jsx";
 import Toast from "./Toast.jsx";
 import graphQLFetch from "./graphQLFetch.js";
+import store from "./store.js";
 
 export default class ProductEdit extends React.Component {
+  static async fetchData(match, showError) {
+    const query = `query product($id: Int!) {
+      product(id: $id) {
+        id category name price image
+      }
+    }`;
+
+    const {
+      params: { id },
+    } = match;
+    const result = await graphQLFetch(query, { id }, showError);
+    return result;
+  }
+
   constructor() {
     super();
+    const product = store.initialData ? store.initialData.product : null;
+    delete store.initialData;
     this.state = {
-      product: {},
+      product,
       invalidFields: {},
       showingValidation: false,
       toastVisible: false,
@@ -31,13 +48,16 @@ export default class ProductEdit extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onValidityChange = this.onValidityChange.bind(this);
+    this.dismissValidation = this.dismissValidation.bind(this);
+    this.showValidation = this.showValidation.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
     this.showError = this.showError.bind(this);
     this.dismissToast = this.dismissToast.bind(this);
   }
 
   componentDidMount() {
-    this.loadData();
+    const { product } = this.state;
+    if (product == null) this.loadData();
   }
 
   componentDidUpdate(prevProps) {
@@ -94,18 +114,8 @@ export default class ProductEdit extends React.Component {
   }
 
   async loadData() {
-    const query = `query product($id: Int!) {
-      product(id: $id) {
-        id category name price image
-      }
-    }`;
-
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-    const data = await graphQLFetch(query, { id }, this.showError);
+    const { match } = this.props;
+    const data = await ProductEdit.fetchData(match, this.showError);
     this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
 
@@ -134,6 +144,8 @@ export default class ProductEdit extends React.Component {
     this.setState({ toastVisible: false });
   }
   render() {
+    const { product } = this.state;
+    if (product == null) return null;
     const {
       product: { id },
     } = this.state;
@@ -142,6 +154,7 @@ export default class ProductEdit extends React.Component {
         params: { id: propsId },
       },
     } = this.props;
+
     if (id == null) {
       if (propsId != null) {
         return <h3>{`Product with ID ${propsId} not found.`}</h3>;
