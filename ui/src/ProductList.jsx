@@ -5,7 +5,6 @@ import { Panel } from "react-bootstrap";
 
 import ProductFilter from "./ProductFilter.jsx";
 import ProductTable from "./ProductTable.jsx";
-import ProductAdd from "./ProductAdd.jsx";
 import ProductView from "./ProductView.jsx";
 
 import graphQLFetch from "./graphQLFetch.js";
@@ -20,7 +19,6 @@ export default class ProductList extends React.Component {
       toastMessage: "",
       toastType: "info",
     };
-    this.createProduct = this.createProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
     this.showError = this.showError.bind(this);
@@ -74,19 +72,6 @@ export default class ProductList extends React.Component {
     const data = await graphQLFetch(query, vars, this.showError);
     if (data) {
       this.setState({ products: data.productList });
-    }
-  }
-
-  async createProduct(product) {
-    const query = `mutation productAdd($product: ProductInputs!) {
-        productAdd(product: $product) {
-          id
-        }
-      }`;
-
-    const data = await graphQLFetch(query, { product }, this.showError);
-    if (data) {
-      this.loadData();
     }
   }
 
@@ -155,7 +140,6 @@ export default class ProductList extends React.Component {
           <br />
           Add a new product to inventory
         </div>
-        <ProductAdd createProduct={this.createProduct} />
         <Route path={`${match.path}/:id`} component={ProductView} />{" "}
         <Toast
           showing={toastVisible}
