@@ -155,10 +155,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/App.jsx":
-/*!*********************!*\
-  !*** ./src/App.jsx ***!
-  \*********************/
+/***/ "./browser/App.jsx":
+/*!*************************!*\
+  !*** ./browser/App.jsx ***!
+  \*************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -172,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _Page_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Page.jsx */ "./src/Page.jsx");
+/* harmony import */ var _src_Page_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/Page.jsx */ "./src/Page.jsx");
 /* eslint "react/react-in-jsx-scope": "off" */
 
 /* eslint "react/no-multi-comp": "off" */
@@ -184,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var element = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Page_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null));
+var element = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_src_Page_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null));
 react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(element, document.getElementById("content"));
 
 if (false) {}
@@ -2076,13 +2076,13 @@ function _graphQLFetch() {
 /***/ }),
 
 /***/ 0:
-/*!***************************!*\
-  !*** multi ./src/App.jsx ***!
-  \***************************/
+/*!*******************************!*\
+  !*** multi ./browser/App.jsx ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./src/App.jsx */"./src/App.jsx");
+module.exports = __webpack_require__(/*! ./browser/App.jsx */"./browser/App.jsx");
 
 
 /***/ })
