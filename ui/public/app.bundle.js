@@ -191,6 +191,27 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./src/About.jsx":
+/*!***********************!*\
+  !*** ./src/About.jsx ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return About; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function About() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "text-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Inventory Manangement"), "\xA0\xA0\xA0\xA0\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "API version 1.0"), "\xA0\xA0\xA0\xA0");
+}
+
+/***/ }),
+
 /***/ "./src/Contents.jsx":
 /*!**************************!*\
   !*** ./src/Contents.jsx ***!
@@ -208,6 +229,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductReport_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductReport.jsx */ "./src/ProductReport.jsx");
 /* harmony import */ var _ProductEdit_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductEdit.jsx */ "./src/ProductEdit.jsx");
 /* harmony import */ var _ProductView_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProductView.jsx */ "./src/ProductView.jsx");
+/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./About.jsx */ "./src/About.jsx");
+
 
 
 
@@ -236,6 +259,9 @@ function Contents() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/report",
     component: _ProductReport_jsx__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/about",
+    component: _About_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     component: NotFound
   }));
@@ -389,7 +415,9 @@ function NavBar() {
       glyph: "option-vertical"
     }),
     noCaret: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["MenuItem"], null, "About"))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__["LinkContainer"], {
+    to: "/about"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["MenuItem"], null, "About")))));
 }
 
 function Footer() {
