@@ -619,7 +619,7 @@ var ProductAddNavItem = /*#__PURE__*/function (_React$Component) {
       }, "Submit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsStyle: "link",
         onClick: function onClick() {
-          _this2.hideModal;
+          _this2.hideModal();
         }
       }, "Cancel")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         showing: toastVisible,

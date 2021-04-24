@@ -139,7 +139,7 @@ class ProductAddNavItem extends React.Component {
               <Button
                 bsStyle="link"
                 onClick={() => {
-                  this.hideModal;
+                  this.hideModal();
                 }}
               >
                 Cancel
