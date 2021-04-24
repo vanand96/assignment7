@@ -172,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _src_Page_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../src/Page.jsx */ "./src/Page.jsx");
+/* harmony import */ var _src_store_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/store.js */ "./src/store.js");
 /* eslint "react/react-in-jsx-scope": "off" */
 
 /* eslint "react/no-multi-comp": "off" */
@@ -182,6 +183,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // eslint-disable-next-line no-underscore-dangle
+
+_src_store_js__WEBPACK_IMPORTED_MODULE_5__["default"].initialData = window.__INITIAL_DATA__;
 var element = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_src_Page_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null));
 react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.hydrate(element, document.getElementById("content"));
 
