@@ -9,44 +9,11 @@ import ProductView from "./ProductView.jsx";
 
 import graphQLFetch from "./graphQLFetch.js";
 import Toast from "./Toast.jsx";
+import store from "./store.js";
 
 export default class ProductList extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      products: [],
-      toastVisible: false,
-      toastMessage: "",
-      toastType: "info",
-    };
-    this.deleteProduct = this.deleteProduct.bind(this);
-    this.showSuccess = this.showSuccess.bind(this);
-    this.showError = this.showError.bind(this);
-    this.dismissToast = this.dismissToast.bind(this);
-  }
-
-  componentDidMount() {
-    this.loadData();
-  }
-
-  componentDidUpdate(prevProps) {
-    const {
-      location: { search: prevSearch },
-    } = prevProps;
-    const {
-      location: { search },
-    } = this.props;
-    if (prevSearch !== search) {
-      this.loadData();
-    }
-  }
-
-  async loadData() {
-    const {
-      location: { search },
-    } = this.props;
+  static async fetchData(match, search, showError) {
     const params = new URLSearchParams(search);
-
     const vars = {};
     if (params.get("category")) vars.category = params.get("category");
 
@@ -69,7 +36,48 @@ export default class ProductList extends React.Component {
         }
       }`;
 
-    const data = await graphQLFetch(query, vars, this.showError);
+    const data = await graphQLFetch(query, vars, showError);
+    return data;
+  }
+
+  constructor() {
+    super();
+    const products = store.initialData ? store.initialData.productList : null;
+    delete store.initialData;
+    this.state = {
+      products,
+      toastVisible: false,
+      toastMessage: "",
+      toastType: "info",
+    };
+    this.deleteProduct = this.deleteProduct.bind(this);
+    this.showSuccess = this.showSuccess.bind(this);
+    this.showError = this.showError.bind(this);
+    this.dismissToast = this.dismissToast.bind(this);
+  }
+
+  componentDidMount() {
+    const { products } = this.state;
+    if (products == null) this.loadData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      location: { search: prevSearch },
+    } = prevProps;
+    const {
+      location: { search },
+    } = this.props;
+    if (prevSearch !== search) {
+      this.loadData();
+    }
+  }
+
+  async loadData() {
+    const {
+      location: { search },
+    } = this.props;
+    const data = await ProductList.fetchData(null, search, this.showError);
     if (data) {
       this.setState({ products: data.productList });
     }
@@ -124,6 +132,7 @@ export default class ProductList extends React.Component {
   render() {
     const { products } = this.state;
     const { toastVisible, toastType, toastMessage } = this.state;
+    if (products == null) return null;
     const { match } = this.props;
     return (
       <React.Fragment>
@@ -136,10 +145,6 @@ export default class ProductList extends React.Component {
           </Panel.Body>
         </Panel>
         <ProductTable products={products} deleteProduct={this.deleteProduct} />
-        <div>
-          <br />
-          Add a new product to inventory
-        </div>
         <Route path={`${match.path}/:id`} component={ProductView} />{" "}
         <Toast
           showing={toastVisible}

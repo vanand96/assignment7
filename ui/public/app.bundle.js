@@ -1002,7 +1002,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
               case 0:
                 match = this.props.match;
                 _context2.next = 3;
-                return ProductEdit.fetchData(match, this.showError);
+                return ProductEdit.fetchData(match, null, this.showError);
 
               case 3:
                 data = _context2.sent;
@@ -1186,7 +1186,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
   }], [{
     key: "fetchData",
     value: function () {
-      var _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(match, showError) {
+      var _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(match, search, showError) {
         var query, id, result;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
@@ -1211,7 +1211,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
         }, _callee3);
       }));
 
-      function fetchData(_x2, _x3) {
+      function fetchData(_x2, _x3, _x4) {
         return _fetchData.apply(this, arguments);
       }
 
@@ -1455,6 +1455,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductView_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ProductView.jsx */ "./src/ProductView.jsx");
 /* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
 /* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store.js */ "./src/store.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -1503,6 +1504,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var ProductList = /*#__PURE__*/function (_React$Component) {
   _inherits(ProductList, _React$Component);
 
@@ -1514,6 +1516,8 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProductList);
 
     _this = _super.call(this);
+    var products = _store_js__WEBPACK_IMPORTED_MODULE_9__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_9__["default"].initialData.productList : null;
+    delete _store_js__WEBPACK_IMPORTED_MODULE_9__["default"].initialData;
     _this.state = {
       products: [],
       toastVisible: false,
@@ -1530,7 +1534,8 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
   _createClass(ProductList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.loadData();
+      var products = this.state.products;
+      if (products == null) this.loadData();
     }
   }, {
     key: "componentDidUpdate",
@@ -1546,24 +1551,16 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var search, params, vars, priceMin, priceMax, query, data;
+        var search, data;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 search = this.props.location.search;
-                params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
-                vars = {};
-                if (params.get("category")) vars.category = params.get("category");
-                priceMin = parseInt(params.get("priceMin"), 10);
-                if (!Number.isNaN(priceMin)) vars.priceMin = priceMin;
-                priceMax = parseInt(params.get("priceMax"), 10);
-                if (!Number.isNaN(priceMax)) vars.priceMax = priceMax;
-                query = "query productList(\n      $category: ProductType\n      $priceMin: Int\n      $priceMax: Int\n      ) {\n        productList (\n          category: $category\n          priceMin: $priceMin\n          priceMax: $priceMax\n          ) {\n          id name category price image \n        }\n      }";
-                _context.next = 11;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, vars, this.showError);
+                _context.next = 3;
+                return ProductList.fetchData(null, search, this.showError);
 
-              case 11:
+              case 3:
                 data = _context.sent;
 
                 if (data) {
@@ -1572,7 +1569,7 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 13:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -1684,7 +1681,7 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductTable_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         products: products,
         deleteProduct: this.deleteProduct
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Add a new product to inventory"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "".concat(match.path, "/:id"),
         component: _ProductView_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]
       }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -1693,6 +1690,44 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
         bsStyle: toastType
       }, toastMessage));
     }
+  }], [{
+    key: "fetchData",
+    value: function () {
+      var _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(match, search, showError) {
+        var params, vars, priceMin, priceMax, query, data;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
+                vars = {};
+                if (params.get("category")) vars.category = params.get("category");
+                priceMin = parseInt(params.get("priceMin"), 10);
+                if (!Number.isNaN(priceMin)) vars.priceMin = priceMin;
+                priceMax = parseInt(params.get("priceMax"), 10);
+                if (!Number.isNaN(priceMax)) vars.priceMax = priceMax;
+                query = "query productList(\n      $category: ProductType\n      $priceMin: Int\n      $priceMax: Int\n      ) {\n        productList (\n          category: $category\n          priceMin: $priceMin\n          priceMax: $priceMax\n          ) {\n          id name category price image \n        }\n      }";
+                _context3.next = 10;
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, vars, this.showError);
+
+              case 10:
+                data = _context3.sent;
+                return _context3.abrupt("return", data);
+
+              case 12:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function fetchData(_x2, _x3, _x4) {
+        return _fetchData.apply(this, arguments);
+      }
+
+      return fetchData;
+    }()
   }]);
 
   return ProductList;

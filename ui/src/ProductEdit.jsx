@@ -19,7 +19,7 @@ import graphQLFetch from "./graphQLFetch.js";
 import store from "./store.js";
 
 export default class ProductEdit extends React.Component {
-  static async fetchData(match, showError) {
+  static async fetchData(match, search, showError) {
     const query = `query product($id: Int!) {
       product(id: $id) {
         id category name price image
@@ -115,7 +115,7 @@ export default class ProductEdit extends React.Component {
 
   async loadData() {
     const { match } = this.props;
-    const data = await ProductEdit.fetchData(match, this.showError);
+    const data = await ProductEdit.fetchData(match, null, this.showError);
     this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
 
