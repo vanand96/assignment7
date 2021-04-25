@@ -1,8 +1,8 @@
 /* eslint "react/prefer-stateless-function": "off" */
 
 import React from "react";
-import { withRouter } from "react-router-dom";
 import URLSearchParams from "url-search-params";
+import { withRouter } from "react-router-dom";
 import {
   ButtonToolbar,
   Button,

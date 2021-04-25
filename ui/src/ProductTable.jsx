@@ -37,9 +37,7 @@ const ProductRow = withRouter(
         <td>{product.name}</td>
         <td>{product.price}</td>
         <td>
-          <Link to={`/view/${product.id}`}>View</Link>
-          {" | "}
-          {/* <Link to={`/edit/${product.id}`}>Edit</Link>
+          {/* <Link to={`/view/${product.id}`}>View</Link>
           {" | "} */}
           <LinkContainer to={`/edit/${product.id}`}>
             <OverlayTrigger delayShow={1000} overlay={editTooltip}>
@@ -49,12 +47,7 @@ const ProductRow = withRouter(
             </OverlayTrigger>
           </LinkContainer>{" "}
           <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
-            <Button
-              bsSize="xsmall"
-              onClick={() => {
-                deleteProduct(index);
-              }}
-            >
+            <Button bsSize="xsmall" onClick={onDelete}>
               <Glyphicon glyph="trash" />
             </Button>
           </OverlayTrigger>

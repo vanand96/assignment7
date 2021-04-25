@@ -12,10 +12,10 @@ import {
   Button,
   Alert,
 } from "react-bootstrap";
+import graphQLFetch from "./graphQLFetch.js";
 import NumInput from "./NumInput.jsx";
 import TextInput from "./TextInput.jsx";
 import Toast from "./Toast.jsx";
-import graphQLFetch from "./graphQLFetch.js";
 import store from "./store.js";
 
 export default class ProductEdit extends React.Component {
@@ -196,7 +196,7 @@ export default class ProductEdit extends React.Component {
                 <FormControl
                   componentClass="select"
                   name="category"
-                  value={status}
+                  value={category}
                   onChange={this.onChange}
                 >
                   <option value="Shirts">Shirts</option>

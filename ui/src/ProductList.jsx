@@ -1,6 +1,5 @@
 import React from "react";
 import URLSearchParams from "url-search-params";
-import { Route } from "react-router-dom";
 import { Panel } from "react-bootstrap";
 
 import ProductFilter from "./ProductFilter.jsx";
@@ -14,7 +13,7 @@ import store from "./store.js";
 export default class ProductList extends React.Component {
   static async fetchData(match, search, showError) {
     const params = new URLSearchParams(search);
-    const vars = {};
+    const vars = { hasSelection: false, selectedId: 0 };
     if (params.get("category")) vars.category = params.get("category");
 
     const priceMin = parseInt(params.get("priceMin"), 10);
@@ -22,17 +21,31 @@ export default class ProductList extends React.Component {
     const priceMax = parseInt(params.get("priceMax"), 10);
     if (!Number.isNaN(priceMax)) vars.priceMax = priceMax;
 
+    const {
+      params: { id },
+    } = match;
+    const idInt = parseInt(id, 10);
+    if (!Number.isNaN(idInt)) {
+      vars.hasSelection = true;
+      vars.selectedId = idInt;
+    }
+
     const query = `query productList(
       $category: ProductType
       $priceMin: Int
       $priceMax: Int
+      $hasSelection: Boolean!
+      $selectedId: Int!
       ) {
         productList (
-          category: $category
-          priceMin: $priceMin
+          category: $category 
+          priceMin: $priceMin 
           priceMax: $priceMax
           ) {
           id name category price image 
+        }
+        product(id: $selectedId) @include (if : $hasSelection) {
+          id name category price image
         }
       }`;
 
@@ -43,9 +56,13 @@ export default class ProductList extends React.Component {
   constructor() {
     super();
     const products = store.initialData ? store.initialData.productList : null;
+    const selectedProduct = store.initialData
+      ? store.initialData.product
+      : null;
     delete store.initialData;
     this.state = {
       products,
+      selectedProduct,
       toastVisible: false,
       toastMessage: "",
       toastType: "info",
@@ -64,11 +81,17 @@ export default class ProductList extends React.Component {
   componentDidUpdate(prevProps) {
     const {
       location: { search: prevSearch },
+      match: {
+        params: { id: prevId },
+      },
     } = prevProps;
     const {
       location: { search },
+      match: {
+        params: { id },
+      },
     } = this.props;
-    if (prevSearch !== search) {
+    if (prevSearch !== search || prevId !== id) {
       this.loadData();
     }
   }
@@ -76,10 +99,14 @@ export default class ProductList extends React.Component {
   async loadData() {
     const {
       location: { search },
+      match,
     } = this.props;
-    const data = await ProductList.fetchData(null, search, this.showError);
+    const data = await ProductList.fetchData(match, search, this.showError);
     if (data) {
-      this.setState({ products: data.productList });
+      this.setState({
+        products: data.productList,
+        selectedProduct: data.product,
+      });
     }
   }
 
@@ -131,9 +158,10 @@ export default class ProductList extends React.Component {
 
   render() {
     const { products } = this.state;
-    const { toastVisible, toastType, toastMessage } = this.state;
     if (products == null) return null;
-    const { match } = this.props;
+
+    const { toastVisible, toastType, toastMessage } = this.state;
+    const { selectedProduct } = this.state;
     return (
       <React.Fragment>
         <Panel>
@@ -145,7 +173,7 @@ export default class ProductList extends React.Component {
           </Panel.Body>
         </Panel>
         <ProductTable products={products} deleteProduct={this.deleteProduct} />
-        <Route path={`${match.path}/:id`} component={ProductView} />{" "}
+        <ProductView product={selectedProduct} />
         <Toast
           showing={toastVisible}
           onDismiss={this.dismissToast}

@@ -136,12 +136,7 @@ class ProductAddNavItem extends React.Component {
               >
                 Submit
               </Button>
-              <Button
-                bsStyle="link"
-                onClick={() => {
-                  this.hideModal();
-                }}
-              >
+              <Button bsStyle="link" onClick={this.hideModal}>
                 Cancel
               </Button>
             </ButtonToolbar>

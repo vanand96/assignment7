@@ -173,11 +173,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _src_Page_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../src/Page.jsx */ "./src/Page.jsx");
 /* harmony import */ var _src_store_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/store.js */ "./src/store.js");
-/* eslint "react/react-in-jsx-scope": "off" */
-
-/* eslint "react/no-multi-comp": "off" */
-
-/* eslint "no-alert": "off" */
 
 
 
@@ -361,11 +356,6 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
-
-var NotFound = function NotFound() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Page Not Found");
-};
-
 function Contents() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
     exact: true,
@@ -534,10 +524,8 @@ function NavBar() {
     exact: true,
     to: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NavItem"], null, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__["LinkContainer"], {
-    exact: true,
     to: "/products"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NavItem"], null, "Product List")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__["LinkContainer"], {
-    exact: true,
     to: "/report"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NavItem"], null, "Report"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Nav"], {
     pullRight: true
@@ -719,8 +707,6 @@ var ProductAddNavItem = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var showing = this.state.showing;
       var _this$state = this.state,
           toastVisible = _this$state.toastVisible,
@@ -778,9 +764,7 @@ var ProductAddNavItem = /*#__PURE__*/function (_React$Component) {
         onClick: this.handleSubmit
       }, "Submit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsStyle: "link",
-        onClick: function onClick() {
-          _this2.hideModal();
-        }
+        onClick: this.hideModal
       }, "Cancel")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         showing: toastVisible,
         onDismiss: this.dismissToast,
@@ -812,10 +796,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-bootstrap */ "./node_modules/react-router-bootstrap/lib/index.js");
 /* harmony import */ var react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var _NumInput_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NumInput.jsx */ "./src/NumInput.jsx");
-/* harmony import */ var _TextInput_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TextInput.jsx */ "./src/TextInput.jsx");
-/* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
-/* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
+/* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
+/* harmony import */ var _NumInput_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./NumInput.jsx */ "./src/NumInput.jsx");
+/* harmony import */ var _TextInput_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TextInput.jsx */ "./src/TextInput.jsx");
+/* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
 /* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store.js */ "./src/store.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -962,7 +946,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
                 query = "mutation productUpdate($id: Int!, $changes: ProductUpdateInputs!) {\n      productUpdate(id:$id, changes:$changes) {\n        id name category price\n      }\n    }";
                 id = product.id, name = product.name, changes = _objectWithoutProperties(product, ["id", "name"]);
                 _context.next = 9;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, {
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_4__["default"])(query, {
                   changes: changes,
                   id: id
                 }, this.showError);
@@ -1113,7 +1097,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"], {
         componentClass: "select",
         name: "category",
-        value: status,
+        value: category,
         onChange: this.onChange
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Shirts"
@@ -1133,7 +1117,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
       }, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"], {
-        componentClass: _TextInput_jsx__WEBPACK_IMPORTED_MODULE_5__["default"],
+        componentClass: _TextInput_jsx__WEBPACK_IMPORTED_MODULE_6__["default"],
         name: "name",
         value: name,
         onChange: this.onChange,
@@ -1144,7 +1128,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
       }, "Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"], {
-        componentClass: _NumInput_jsx__WEBPACK_IMPORTED_MODULE_4__["default"],
+        componentClass: _NumInput_jsx__WEBPACK_IMPORTED_MODULE_5__["default"],
         name: "price",
         value: price,
         onChange: this.onChange,
@@ -1155,7 +1139,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
       }, "Image"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"], {
-        componentClass: _TextInput_jsx__WEBPACK_IMPORTED_MODULE_5__["default"],
+        componentClass: _TextInput_jsx__WEBPACK_IMPORTED_MODULE_6__["default"],
         name: "image",
         value: image,
         onChange: this.onChange,
@@ -1177,7 +1161,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
         to: "/edit/".concat(id - 1)
       }, "Prev"), " | ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/edit/".concat(id + 1)
-      }, "Next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, "Next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
         showing: toastVisible,
         onDismiss: this.dismissToast,
         bsStyle: toastType
@@ -1195,7 +1179,7 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
                 query = "query product($id: Int!) {\n      product(id: $id) {\n        id category name price image\n      }\n    }";
                 id = match.params.id;
                 _context3.next = 4;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, {
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_4__["default"])(query, {
                   id: id
                 }, showError);
 
@@ -1237,9 +1221,9 @@ var ProductEdit = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! url-search-params */ "./node_modules/url-search-params/build/url-search-params.node.js");
-/* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(url_search_params__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! url-search-params */ "./node_modules/url-search-params/build/url-search-params.node.js");
+/* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(url_search_params__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -1282,7 +1266,7 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProductFilter);
 
     _this = _super.call(this);
-    var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
+    var params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
     _this.state = {
       category: params.get("category") || "",
       priceMin: params.get("priceMin") || "",
@@ -1343,7 +1327,7 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
     key: "showOriginalFilter",
     value: function showOriginalFilter() {
       var search = this.props.location.search;
-      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a(search);
+      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
       this.setState({
         category: params.get("category") || "",
         priceMin: params.get("priceMin") || "",
@@ -1359,7 +1343,7 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
           priceMin = _this$state.priceMin,
           priceMax = _this$state.priceMax;
       var history = this.props.history;
-      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_2___default.a();
+      var params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a();
       if (category) params.set("category", category);
       if (priceMin) params.set("priceMin", priceMin);
       if (priceMax) params.set("priceMax", priceMax);
@@ -1430,7 +1414,7 @@ var ProductFilter = /*#__PURE__*/function (_React$Component) {
   return ProductFilter;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ProductFilter));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(ProductFilter));
 
 /***/ }),
 
@@ -1448,14 +1432,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! url-search-params */ "./node_modules/url-search-params/build/url-search-params.node.js");
 /* harmony import */ var url_search_params__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(url_search_params__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var _ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductFilter.jsx */ "./src/ProductFilter.jsx");
-/* harmony import */ var _ProductTable_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProductTable.jsx */ "./src/ProductTable.jsx");
-/* harmony import */ var _ProductView_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ProductView.jsx */ "./src/ProductView.jsx");
-/* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
-/* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
-/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store.js */ "./src/store.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var _ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductFilter.jsx */ "./src/ProductFilter.jsx");
+/* harmony import */ var _ProductTable_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductTable.jsx */ "./src/ProductTable.jsx");
+/* harmony import */ var _ProductView_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProductView.jsx */ "./src/ProductView.jsx");
+/* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
+/* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store.js */ "./src/store.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -1504,7 +1487,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var ProductList = /*#__PURE__*/function (_React$Component) {
   _inherits(ProductList, _React$Component);
 
@@ -1516,10 +1498,12 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProductList);
 
     _this = _super.call(this);
-    var products = _store_js__WEBPACK_IMPORTED_MODULE_9__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_9__["default"].initialData.productList : null;
-    delete _store_js__WEBPACK_IMPORTED_MODULE_9__["default"].initialData;
+    var products = _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData.productList : null;
+    var selectedProduct = _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData.product : null;
+    delete _store_js__WEBPACK_IMPORTED_MODULE_8__["default"].initialData;
     _this.state = {
-      products: [],
+      products: products,
+      selectedProduct: selectedProduct,
       toastVisible: false,
       toastMessage: "",
       toastType: "info"
@@ -1540,10 +1524,13 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      var prevSearch = prevProps.location.search;
-      var search = this.props.location.search;
+      var prevSearch = prevProps.location.search,
+          prevId = prevProps.match.params.id;
+      var _this$props = this.props,
+          search = _this$props.location.search,
+          id = _this$props.match.params.id;
 
-      if (prevSearch !== search) {
+      if (prevSearch !== search || prevId !== id) {
         this.loadData();
       }
     }
@@ -1551,21 +1538,23 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var search, data;
+        var _this$props2, search, match, data;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                search = this.props.location.search;
+                _this$props2 = this.props, search = _this$props2.location.search, match = _this$props2.match;
                 _context.next = 3;
-                return ProductList.fetchData(null, search, this.showError);
+                return ProductList.fetchData(match, search, this.showError);
 
               case 3:
                 data = _context.sent;
 
                 if (data) {
                   this.setState({
-                    products: data.productList
+                    products: data.productList,
+                    selectedProduct: data.product
                   });
                 }
 
@@ -1587,7 +1576,7 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "deleteProduct",
     value: function () {
       var _deleteProduct = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(index) {
-        var query, products, _this$props, _this$props$location, pathname, search, history, id, data;
+        var query, products, _this$props3, _this$props3$location, pathname, search, history, id, data;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -1595,10 +1584,10 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
               case 0:
                 query = "mutation productDelete($id: Int!) {\n      productDelete(id: $id)\n    }";
                 products = this.state.products;
-                _this$props = this.props, _this$props$location = _this$props.location, pathname = _this$props$location.pathname, search = _this$props$location.search, history = _this$props.history;
+                _this$props3 = this.props, _this$props3$location = _this$props3.location, pathname = _this$props3$location.pathname, search = _this$props3$location.search, history = _this$props3.history;
                 id = products[index].id;
                 _context2.next = 6;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, {
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_6__["default"])(query, {
                   id: id
                 }, this.showError);
 
@@ -1669,22 +1658,22 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var products = this.state.products;
+      if (products == null) return null;
       var _this$state = this.state,
           toastVisible = _this$state.toastVisible,
           toastType = _this$state.toastType,
           toastMessage = _this$state.toastMessage;
-      var match = this.props.match;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, {
+      var selectedProduct = this.state.selectedProduct;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Title, {
         toggle: true
-      }, "Filters")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, {
+      }, "Filters")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
         collapsible: true
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductTable_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductFilter_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductTable_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         products: products,
         deleteProduct: this.deleteProduct
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "".concat(match.path, "/:id"),
-        component: _ProductView_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]
-      }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductView_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        product: selectedProduct
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
         showing: toastVisible,
         onDismiss: this.dismissToast,
         bsStyle: toastType
@@ -1694,32 +1683,43 @@ var ProductList = /*#__PURE__*/function (_React$Component) {
     key: "fetchData",
     value: function () {
       var _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(match, search, showError) {
-        var params, vars, priceMin, priceMax, query, data;
+        var params, vars, priceMin, priceMax, id, idInt, query, data;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 params = new url_search_params__WEBPACK_IMPORTED_MODULE_1___default.a(search);
-                vars = {};
+                vars = {
+                  hasSelection: false,
+                  selectedId: 0
+                };
                 if (params.get("category")) vars.category = params.get("category");
                 priceMin = parseInt(params.get("priceMin"), 10);
                 if (!Number.isNaN(priceMin)) vars.priceMin = priceMin;
                 priceMax = parseInt(params.get("priceMax"), 10);
                 if (!Number.isNaN(priceMax)) vars.priceMax = priceMax;
-                query = "query productList(\n      $category: ProductType\n      $priceMin: Int\n      $priceMax: Int\n      ) {\n        productList (\n          category: $category\n          priceMin: $priceMin\n          priceMax: $priceMax\n          ) {\n          id name category price image \n        }\n      }";
-                _context3.next = 10;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_7__["default"])(query, vars, this.showError);
+                id = match.params.id;
+                idInt = parseInt(id, 10);
 
-              case 10:
+                if (!Number.isNaN(idInt)) {
+                  vars.hasSelection = true;
+                  vars.selectedId = idInt;
+                }
+
+                query = "query productList(\n      $category: ProductType\n      $priceMin: Int\n      $priceMax: Int\n      $hasSelection: Boolean!\n      $selectedId: Int!\n      ) {\n        productList (\n          category: $category \n          priceMin: $priceMin \n          priceMax: $priceMax\n          ) {\n          id name category price image \n        }\n        product(id: $selectedId) @include (if : $hasSelection) {\n          id name\n        }\n      }";
+                _context3.next = 13;
+                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_6__["default"])(query, vars, showError);
+
+              case 13:
                 data = _context3.sent;
                 return _context3.abrupt("return", data);
 
-              case 12:
+              case 15:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee3);
       }));
 
       function fetchData(_x2, _x3, _x4) {
@@ -1815,9 +1815,7 @@ var ProductRow = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRoute
     overlay: deleteTooltip
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
     bsSize: "xsmall",
-    onClick: function onClick() {
-      deleteProduct(index);
-    }
+    onClick: onDelete
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
     glyph: "trash"
   })))));
@@ -1858,159 +1856,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductView; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _graphQLFetch_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./graphQLFetch.js */ "./src/graphQLFetch.js");
-/* harmony import */ var _Toast_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Toast.jsx */ "./src/Toast.jsx");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function ProductView(_ref) {
+  var product = _ref.product;
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-
-var ProductView = /*#__PURE__*/function (_React$Component) {
-  _inherits(ProductView, _React$Component);
-
-  var _super = _createSuper(ProductView);
-
-  function ProductView() {
-    var _this;
-
-    _classCallCheck(this, ProductView);
-
-    _this = _super.call(this);
-    _this.state = {
-      product: {},
-      toastVisible: false,
-      toastMessage: "",
-      toastType: "info"
-    };
-    _this.showError = _this.showError.bind(_assertThisInitialized(_this));
-    _this.dismissToast = _this.dismissToast.bind(_assertThisInitialized(_this));
-    return _this;
+  if (product) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Product View"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("pre", null, product.name));
   }
 
-  _createClass(ProductView, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.loadData();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var prevId = prevProps.match.params.id;
-      var id = this.props.match.params.id;
-
-      if (prevId !== id) {
-        this.loadData();
-      }
-    }
-  }, {
-    key: "showError",
-    value: function showError(message) {
-      this.setState({
-        toastVisible: true,
-        toastMessage: message,
-        toastType: "danger"
-      });
-    }
-  }, {
-    key: "dismissToast",
-    value: function dismissToast() {
-      this.setState({
-        toastVisible: false
-      });
-    }
-  }, {
-    key: "loadData",
-    value: function () {
-      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var id, query, data;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                id = this.props.match.params.id;
-                query = "query product($id: Int!) {\n      product (id: $id) {\n        id image\n      }\n    }";
-                _context.next = 4;
-                return Object(_graphQLFetch_js__WEBPACK_IMPORTED_MODULE_1__["default"])(query, {
-                  id: id
-                });
-
-              case 4:
-                data = _context.sent;
-
-                if (data) {
-                  this.setState({
-                    product: data.product
-                  });
-                } else {
-                  this.setState({
-                    product: {}
-                  });
-                }
-
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function loadData() {
-        return _loadData.apply(this, arguments);
-      }
-
-      return loadData;
-    }()
-  }, {
-    key: "render",
-    value: function render() {
-      var image = this.state.product.image;
-      var _this$state = this.state,
-          toastVisible = _this$state.toastVisible,
-          toastType = _this$state.toastType,
-          toastMessage = _this$state.toastMessage;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Image"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("pre", null, image), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: image,
-        width: "500",
-        height: "600",
-        align: "center"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Toast_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        showing: toastVisible,
-        onDismiss: this.dismissToast,
-        bsStyle: toastType
-      }, toastMessage));
-    }
-  }]);
-
-  return ProductView;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-
+  return null;
+}
 
 /***/ }),
 
@@ -2336,7 +2191,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [{
-  path: "/products",
+  path: "/products/:id?",
   component: _ProductList_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: "/edit/:id",

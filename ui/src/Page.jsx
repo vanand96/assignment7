@@ -22,10 +22,10 @@ function NavBar() {
         <LinkContainer exact to="/">
           <NavItem>Home</NavItem>
         </LinkContainer>
-        <LinkContainer exact to="/products">
+        <LinkContainer to="/products">
           <NavItem>Product List</NavItem>
         </LinkContainer>
-        <LinkContainer exact to="/report">
+        <LinkContainer to="/report">
           <NavItem>Report</NavItem>
         </LinkContainer>
       </nav>
