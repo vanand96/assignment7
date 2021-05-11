@@ -60,4 +60,39 @@ async function remove(_, { id }) {
   return false;
 }
 
-module.exports = { list, add, get, update, delete: remove };
+async function counts(_, { category, priceMin, priceMax }) {
+  const db = getDb();
+  const filter = {};
+
+  if (category) filter.category = category;
+
+  if (priceMin !== undefined || priceMax !== undefined) {
+    filter.effort = {};
+    if (priceMin !== undefined) filter.effort.$gte = priceMin;
+    if (priceMax !== undefined) filter.effort.$lte = priceMax;
+  }
+
+  const products = await db
+    .collection("products")
+    .aggregate([
+      { $match: filter },
+      {
+        $group: {
+          _id: { name: "$name", category: "$category" },
+          count: { $sum: 1 },
+        },
+      },
+    ])
+    .toArray();
+
+  const stats = {};
+  products.forEach((result) => {
+    // eslint-disable-next-line no-underscore-dangle
+    const { name, category: categoryKey } = result._id;
+    if (!stats[name]) stats[name] = { name };
+    stats[name][categoryKey] = result.count;
+  });
+  return Object.values(stats);
+}
+
+module.exports = { list, add, get, update, delete: remove, counts };

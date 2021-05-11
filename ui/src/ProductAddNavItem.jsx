@@ -15,22 +15,16 @@ import {
 } from "react-bootstrap";
 
 import graphQLFetch from "./graphQLFetch.js";
-import Toast from "./Toast.jsx";
-
+import withToast from "./withToast.jsx";
 class ProductAddNavItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showing: false,
-      toastVisible: false,
-      toastMessage: "",
-      toastType: "success",
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.showError = this.showError.bind(this);
-    this.dismissToast = this.dismissToast.bind(this);
   }
 
   showModal() {
@@ -39,18 +33,6 @@ class ProductAddNavItem extends React.Component {
 
   hideModal() {
     this.setState({ showing: false });
-  }
-
-  showError(message) {
-    this.setState({
-      toastVisible: true,
-      toastMessage: message,
-      toastType: "danger",
-    });
-  }
-
-  dismissToast() {
-    this.setState({ toastVisible: false });
   }
 
   async handleSubmit(e) {
@@ -70,6 +52,7 @@ class ProductAddNavItem extends React.Component {
       }
     }`;
 
+    const { showError } = this.props;
     const data = await graphQLFetch(query, { product }, this.showError);
     if (data) {
       const { history } = this.props;
@@ -142,16 +125,9 @@ class ProductAddNavItem extends React.Component {
             </ButtonToolbar>
           </Modal.Footer>
         </Modal>
-        <Toast
-          showing={toastVisible}
-          onDismiss={this.dismissToast}
-          bsStyle={toastType}
-        >
-          {toastMessage}
-        </Toast>
       </React.Fragment>
     );
   }
 }
 
-export default withRouter(ProductAddNavItem);
+export default withToast(withRouter(ProductAddNavItem));

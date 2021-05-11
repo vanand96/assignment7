@@ -15,6 +15,13 @@ type Product {
   image: String
 }
 
+type ProductCounts {
+  category: ProductType!
+  name: String!
+  price: Float
+  image: String
+}
+
 input ProductInputs {
   name: String!
   "Optional, if not supplied, will be set to 'Shirts'"
@@ -39,6 +46,12 @@ type Query {
   about: String!
   productList(category: ProductType, priceMin: Int, priceMax: Int): [Product!]!
   product(id: Int!): Product!
+  productCounts(
+    name: String
+    category: ProductType
+    price: Float
+    image: String
+  ): [ProductCounts!]!
 }
 
 type Mutation {

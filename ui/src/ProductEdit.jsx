@@ -15,10 +15,10 @@ import {
 import graphQLFetch from "./graphQLFetch.js";
 import NumInput from "./NumInput.jsx";
 import TextInput from "./TextInput.jsx";
-import Toast from "./Toast.jsx";
+import withToast from "./withToast.jsx";
 import store from "./store.js";
 
-export default class ProductEdit extends React.Component {
+class ProductEdit extends React.Component {
   static async fetchData(match, search, showError) {
     const query = `query product($id: Int!) {
       product(id: $id) {
@@ -41,18 +41,12 @@ export default class ProductEdit extends React.Component {
       product,
       invalidFields: {},
       showingValidation: false,
-      toastVisible: false,
-      toastMessage: "",
-      toastType: "success",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onValidityChange = this.onValidityChange.bind(this);
     this.dismissValidation = this.dismissValidation.bind(this);
     this.showValidation = this.showValidation.bind(this);
-    this.showSuccess = this.showSuccess.bind(this);
-    this.showError = this.showError.bind(this);
-    this.dismissToast = this.dismissToast.bind(this);
   }
 
   componentDidMount() {
@@ -106,15 +100,16 @@ export default class ProductEdit extends React.Component {
     }`;
 
     const { id, name, ...changes } = product;
-    const data = await graphQLFetch(query, { changes, id }, this.showError);
+    const { showSuccess, showError } = this.props;
+    const data = await graphQLFetch(query, { changes, id }, showError);
     if (data) {
       this.setState({ product: data.productUpdate });
-      this.showSuccess("Updated product successfully"); // eslint-disable-line no-alert
+      showSuccess("Updated product successfully"); // eslint-disable-line no-alert
     }
   }
 
   async loadData() {
-    const { match } = this.props;
+    const { match, showError } = this.props;
     const data = await ProductEdit.fetchData(match, null, this.showError);
     this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
@@ -126,23 +121,6 @@ export default class ProductEdit extends React.Component {
     this.setState({ showingValidation: false });
   }
 
-  showSuccess(message) {
-    this.setState({
-      toastVisible: true,
-      toastMessage: message,
-      toastType: "success",
-    });
-  }
-  showError(message) {
-    this.setState({
-      toastVisible: true,
-      toastMessage: message,
-      toastType: "danger",
-    });
-  }
-  dismissToast() {
-    this.setState({ toastVisible: false });
-  }
   render() {
     const { product } = this.state;
     if (product == null) return null;
@@ -178,7 +156,6 @@ export default class ProductEdit extends React.Component {
     const {
       product: { price, image },
     } = this.state;
-    const { toastVisible, toastMessage, toastType } = this.state;
 
     return (
       <Panel>
@@ -274,14 +251,11 @@ export default class ProductEdit extends React.Component {
           {" | "}
           <Link to={`/edit/${id + 1}`}>Next</Link>
         </Panel.Footer>
-        <Toast
-          showing={toastVisible}
-          onDismiss={this.dismissToast}
-          bsStyle={toastType}
-        >
-          {toastMessage}
-        </Toast>
       </Panel>
     );
   }
 }
+
+const ProductEditWithToast = withToast(ProductEdit);
+ProductEditWithToast.fetchData = ProductEdit.fetchData;
+export default ProductEditWithToast;
