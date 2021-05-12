@@ -17,6 +17,7 @@ import NumInput from "./NumInput.jsx";
 import TextInput from "./TextInput.jsx";
 import withToast from "./withToast.jsx";
 import store from "./store.js";
+import UserContext from "./UserContext.js";
 
 class ProductEdit extends React.Component {
   static async fetchData(match, search, showError) {
@@ -93,8 +94,14 @@ class ProductEdit extends React.Component {
     const { product, invalidFields } = this.state;
     if (Object.keys(invalidFields).length !== 0) return;
 
-    const query = `mutation productUpdate($id: Int!, $changes: ProductUpdateInputs!) {
-      productUpdate(id:$id, changes:$changes) {
+    const query = `mutation productUpdate(
+      $id: Int!, 
+      $changes: ProductUpdateInputs!
+      ) {
+      productUpdate(
+        id:$id, 
+        changes:$changes
+        ) {
         id name category price
       }
     }`;
@@ -110,7 +117,7 @@ class ProductEdit extends React.Component {
 
   async loadData() {
     const { match, showError } = this.props;
-    const data = await ProductEdit.fetchData(match, null, this.showError);
+    const data = await ProductEdit.fetchData(match, null, showError);
     this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
 
@@ -157,6 +164,7 @@ class ProductEdit extends React.Component {
       product: { price, image },
     } = this.state;
 
+    const user = this.context;
     return (
       <Panel>
                 
@@ -229,7 +237,11 @@ class ProductEdit extends React.Component {
             <FormGroup>
               <Col smOffset={3} sm={6}>
                 <ButtonToolbar>
-                  <Button bsStyle="primary" type="submit">
+                  <Button
+                    disabled={!user.signedIn}
+                    bsStyle="primary"
+                    type="submit"
+                  >
                     Submit
                   </Button>
                   <LinkContainer to="/products">
@@ -256,6 +268,7 @@ class ProductEdit extends React.Component {
   }
 }
 
+ProductEdit.contextType = UserContext;
 const ProductEditWithToast = withToast(ProductEdit);
 ProductEditWithToast.fetchData = ProductEdit.fetchData;
 export default ProductEditWithToast;

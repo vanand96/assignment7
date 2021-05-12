@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import {
   Button,
@@ -7,10 +8,21 @@ import {
   OverlayTrigger,
   Table,
 } from "react-bootstrap";
-import { Link, NavLink, withRouter } from "react-router-dom";
 
-const ProductRow = withRouter(
-  ({ product, location: { search }, deleteProduct, index }) => {
+import UserContext from "./UserContext.js";
+
+// eslint-disable-next-line react/prefer-stateless-function
+class ProductRowPlain extends React.Component {
+  render() {
+    const {
+      product,
+      location: { search },
+      deleteProduct,
+      index,
+    } = this.props;
+    const user = this.context;
+    const disabled = !user.signedIn;
+
     const selectLocation = { pathname: `/products/${product.id}`, search };
 
     const editTooltip = (
@@ -57,7 +69,11 @@ const ProductRow = withRouter(
 
     return <LinkContainer to={selectLocation}>{tableRow}</LinkContainer>;
   }
-);
+}
+
+ProductRowPlain.contextType = UserContext;
+const ProductRow = withRouter(ProductRowPlain);
+delete ProductRow.contextType;
 
 export default function ProductTable({ products, deleteProduct }) {
   const productRows = products.map((product, index) => (

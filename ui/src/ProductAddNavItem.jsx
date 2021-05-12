@@ -16,6 +16,7 @@ import {
 
 import graphQLFetch from "./graphQLFetch.js";
 import withToast from "./withToast.jsx";
+
 class ProductAddNavItem extends React.Component {
   constructor(props) {
     super(props);
@@ -62,10 +63,13 @@ class ProductAddNavItem extends React.Component {
 
   render() {
     const { showing } = this.state;
+    const {
+      user: { signedIn },
+    } = this.props;
     const { toastVisible, toastMessage, toastType } = this.state;
     return (
       <React.Fragment>
-        <NavItem onClick={this.showModal}>
+        <NavItem disabled={!signedIn} onClick={this.showModal}>
           <OverlayTrigger
             placement="left"
             delayShow={1000}

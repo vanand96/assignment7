@@ -9,10 +9,16 @@ import {
   Grid,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import ProductAddNavItem from "./ProductAddNavItem.jsx";
-import Contents from "./Contents.jsx";
 
-function NavBar() {
+import Contents from "./Contents.jsx";
+import ProductAddNavItem from "./ProductAddNavItem.jsx";
+import SignInNavItem from "./SignInNavItem.jsx";
+import Search from "./Search.jsx";
+import UserContext from "./UserContext.js";
+import graphQLFetch from "./graphQLFetch.js";
+import store from "./store.js";
+
+function NavBar({ user, onUserChange }) {
   return (
     <Navbar fluid>
       <Navbar.Header>
@@ -30,7 +36,8 @@ function NavBar() {
         </LinkContainer>
       </nav>
       <Nav pullRight>
-        <ProductAddNavItem />
+        <ProductAddNavItem user={user} />
+        <SignInNavItem user={user} onUserChange={onUserChange} />
         <NavDropdown
           id="user-dropdown"
           title={<Glyphicon glyph="option-vertical" />}
@@ -57,14 +64,50 @@ function Footer() {
   );
 }
 
-export default function Page() {
-  return (
-    <div>
-      <NavBar />
-      <Grid fluid>
-        <Contents />
-      </Grid>
-      <Footer />
-    </div>
-  );
+export default class Page extends React.Component {
+  static async fetchData(cookie) {
+    const query = `query { user {
+      signedIn givenName
+    }}`;
+    const data = await graphQLFetch(query, null, null, cookie);
+    return data;
+  }
+
+  constructor(props) {
+    super(props);
+    const user = store.userData ? store.userData.user : null;
+    delete store.userData;
+    this.state = { user };
+
+    this.onUserChange = this.onUserChange.bind(this);
+  }
+
+  async componentDidMount() {
+    const { user } = this.state;
+    if (user == null) {
+      const data = await Page.fetchData();
+      this.setState({ user: data.user });
+    }
+  }
+
+  onUserChange(user) {
+    this.setState({ user });
+  }
+
+  render() {
+    const { user } = this.state;
+    if (user == null) return null;
+
+    return (
+      <div>
+        <NavBar user={user} onUserChange={this.onUserChange} />
+        <Grid fluid>
+          <UserContext.Provider value={user}>
+            <Contents />
+          </UserContext.Provider>
+        </Grid>
+        <Footer />
+      </div>
+    );
+  }
 }

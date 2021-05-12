@@ -77,14 +77,14 @@ class ProductFilter extends React.Component {
 
   applyFilter() {
     const { category, priceMin, priceMax } = this.state;
-    const { history } = this.props;
+    const { history, urlBase } = this.props;
     const params = new URLSearchParams();
     if (category) params.set("category", category);
     if (priceMin) params.set("priceMin", priceMin);
     if (priceMax) params.set("priceMax", priceMax);
 
     const search = params.toString() ? `?${params.toString()}` : "";
-    history.push({ pathname: "/products", search });
+    history.push({ pathname: urlBase, search });
   }
 
   render() {

@@ -16,12 +16,27 @@ type Product {
 }
 
 type ProductCounts {
-  category: ProductType!
   name: String!
-  price: Float
-  image: String
+  Shirts: Int
+  Jeans: Int
+  Jackets: Int
+  Sweaters: Int
+  Accessories: Int
 }
 
+type ProductListWithPages {
+  products: [Product!]!
+  pages: Int
+}
+
+type User {
+  signedIn: Boolean!
+  givenName: String
+  name: String
+  email: String
+}
+
+"Toned down Issue, used as inputs, without server generated values."
 input ProductInputs {
   name: String!
   "Optional, if not supplied, will be set to 'Shirts'"
@@ -44,13 +59,19 @@ input ProductUpdateInputs {
 ##### Top level declarations
 type Query {
   about: String!
-  productList(category: ProductType, priceMin: Int, priceMax: Int): [Product!]!
+  user: User!
+  productList(
+    category: ProductType
+    priceMin: Float
+    priceMax: Float
+    search: String
+    page: Int = 1
+  ): ProductListWithPages
   product(id: Int!): Product!
   productCounts(
-    name: String
     category: ProductType
-    price: Float
-    image: String
+    priceMin: Float
+    priceMax: Float
   ): [ProductCounts!]!
 }
 
@@ -58,5 +79,6 @@ type Mutation {
   setAboutMessage(message: String!): String
   productAdd(product: ProductInputs!): Product!
   productUpdate(id: Int!, changes: ProductUpdateInputs!): Product!
+  productRestore(id: Int!): Boolean!
   productDelete(id: Int!): Boolean!
 }

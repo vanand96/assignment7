@@ -1,4 +1,6 @@
+const { UserInputError } = require("apollo-server-express");
 const { getDb, getNextSequence } = require("./db.js");
+const { mustBeSignedIn } = require("./auth.js");
 
 async function get(_, { id }) {
   const db = getDb();
@@ -6,7 +8,9 @@ async function get(_, { id }) {
   return product;
 }
 
-async function list(_, { category, priceMin, priceMax }) {
+const PAGE_SIZE = 10;
+
+async function list(_, { category, priceMin, priceMax, search, page }) {
   const db = getDb();
   const filter = {};
   if (category) filter.category = category;
@@ -14,11 +18,22 @@ async function list(_, { category, priceMin, priceMax }) {
   if (priceMin !== undefined || priceMax !== undefined) {
     filter.price = {};
     if (priceMin !== undefined) filter.price.$gte = priceMin;
-    if (priceMin !== undefined) filter.price.$lte = priceMax;
+    if (priceMax !== undefined) filter.price.$lte = priceMax;
   }
 
-  const products = await db.collection("products").find(filter).toArray();
-  return products;
+  if (search) filter.$text = { $search: search };
+
+  const cursor = db
+    .collection("products")
+    .find(filter)
+    .sort({ id: 1 })
+    .skip(PAGE_SIZE * (page - 1))
+    .limit(PAGE_SIZE);
+
+  const totalCount = await cursor.count(false);
+  const products = cursor.toArray();
+  const pages = Math.ceil(totalCount / PAGE_SIZE);
+  return { products, pages };
   // return productDB;
 }
 
@@ -27,8 +42,10 @@ async function add(_, { product }) {
   // productDB.push(product);
   // return product;
   const db = getDb();
+  const newProduct = Object.assign({}, product);
+
   product.id = await getNextSequence("products");
-  const result = await db.collection("products").insertOne(product);
+  const result = await db.collection("products").insertOne(newProduct);
   const savedProduct = await db
     .collection("products")
     .findOne({ _id: result.insertedId });
@@ -60,6 +77,20 @@ async function remove(_, { id }) {
   return false;
 }
 
+async function restore(_, { id }) {
+  const db = getDb();
+  const issue = await db.collection("products").findOne({ id });
+  if (!issue) return false;
+  issue.deleted = new Date();
+
+  let result = await db.collection("products").insertOne(product);
+  if (result.insertedId) {
+    result = await db.collection("deleted_products").removeOne({ id });
+    return result.deletedCount === 1;
+  }
+  return false;
+}
+
 async function counts(_, { category, priceMin, priceMax }) {
   const db = getDb();
   const filter = {};
@@ -72,7 +103,7 @@ async function counts(_, { category, priceMin, priceMax }) {
     if (priceMax !== undefined) filter.effort.$lte = priceMax;
   }
 
-  const products = await db
+  const results = await db
     .collection("products")
     .aggregate([
       { $match: filter },
@@ -95,4 +126,12 @@ async function counts(_, { category, priceMin, priceMax }) {
   return Object.values(stats);
 }
 
-module.exports = { list, add, get, update, delete: remove, counts };
+module.exports = {
+  list,
+  add: mustBeSignedIn(add),
+  get,
+  update: mustBeSignedIn(update),
+  delete: mustBeSignedIn(remove),
+  restore: mustBeSignedIn(restore),
+  counts,
+};
