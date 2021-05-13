@@ -3,8 +3,14 @@
 This application is designed for inventory management.
 The features demonstrated includes:
 
-- React-Bootstrap
-- React-Router-Bootstrap
+- Higher order components
+- Mongo DB aggregations
+- Report page with product count and pagination
+- Smart search with mongo DB text index
+- Restore feature
+- Sign in with Google
+- Authorization
+- Deployment with Heroku
 
 Run the following commands to start the app.
 
