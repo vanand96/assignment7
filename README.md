@@ -1,4 +1,4 @@
-# CS-648 Full Stack Assignment 6
+# CS-648 Full Stack Assignment 7
 
 This application is designed for inventory management.
 The features demonstrated includes:
@@ -26,5 +26,5 @@ npm run watch
 
 ```bash
 cd ui
-npm start
+npm start dev-all
 ```
